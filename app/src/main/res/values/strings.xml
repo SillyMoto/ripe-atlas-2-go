@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">RipeAtlas2Go</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Ripe Atlas 2 Go</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_measurements">Measurements</string>
+    <string name="menu_credits">Credits</string>
+    <string name="menu_api_keys">Api Keys</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="title_activity_measurement">MeasurementActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="header_column1">ID</string>
+    <string name="header_column2">Type</string>
+    <string name="header_column3">Start</string>
+    <string name="header_column4">Stop</string>
+    <string name="header_column5">Probes</string>
+    <string name="header_column6">Status</string>
+    <string name="header_column7">UUID</string>
+    <string name="header_column8">Label</string>
+    <string name="header_column9">Valid from</string>
+    <string name="header_column10">Valid to</string>
+    <string name="header_column11">Enabled</string>
+
+    <string name="add_msm">Add Measurement</string>
+    <string name="create_msm">Create Measurement</string>
+    <string name="add_api_keys">Add Api Keys</string>
+    <string name="create_api_key">Create Api Key</string>
+    <string name="introduction">Introduction</string>
+    <string name="intro_create_api_Key">It is possible to authenticate with the REST API using API keys. API keys let you access restricted data and perform certain actions without signing in to the RIPE NCC Access single sign-on system.\n
+        Each API key allows a set of actions to be performed in your name. For example, a single key may allow the creation of a new user-defined measurement and also allow hidden information about your probe to be viewed./n
+        The two main reasons for using API keys are to:\n
+        &#8226; Make it simpler to write scripts that use RIPE Atlas data (such as this app)\n
+        &#8226; Allow you to easily and securely share data with other people</string>
+    <string name="creating_api_keys">Creating Api Keys</string>
+    <string name="info_creating_api_Key">New keys can be created using the key management screen.\n
+        You will be presented with the following choices:\n
+        &#8226; Label: This is a free-text string that you can use to help organise your keys.\n
+        &#8226; Valid from: Keys won\'t work until this time. If you leave this blank, they will be effective immediately.\n
+        &#8226; Valid to: Keys will stop working at this time. If you leave this blank, your key will never automatically expire.\n
+        &#8226; Enabled: Keys will not work unless this is on.\n
+        You should add one or more grants to your key to assign particular permissions. Each grant takes the following options:\n
+        &#8226; Permission: This is the specific type of permission you want to assign. A permission will generally correspond to one function and one API URL prefix.\n
+        &#8226; Target: This limits the grant to providing access either to a specific object that you own, such as an individual probe or user-defined measurement. With some permissions, you can provide access to all objects of the relevant type. Note: In some cases, the target option is not applicable.
+</string>
+    <string name="header_column12">Permissions</string>
+    <string name="current_time">Current Time</string>
+    <string name="created">Created</string>
+    <string name="api_key">API Key</string>
+    <string name="communicate">Communicate</string>
+</resources>

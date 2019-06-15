@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ApiKeysActivity">
+
+    <TableLayout
+        android:id="@+id/table_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:stretchColumns="0,1,2,3,4">
+
+        <TableRow
+            android:id="@+id/row_header">
+
+            <TextView
+                android:id="@+id/column1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/header_column7" />
+
+            <TextView
+                android:id="@+id/column2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/header_column8" />
+
+            <TextView
+                android:id="@+id/column3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/header_column9" />
+
+            <TextView
+                android:id="@+id/column4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/header_column10" />
+
+            <TextView
+                android:id="@+id/column5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/header_column11" />
+
+        </TableRow>
+
+        <View
+            android:layout_height="2dip"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark" />
+
+    </TableLayout>
+
+    <ListView
+        android:id="@+id/list_view_api_keys"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/table_buttons"
+        android:layout_below="@+id/table_header"
+        android:layout_gravity="center" />
+
+    <TableLayout
+        android:id="@+id/table_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:stretchColumns="0,1">
+
+        <TableRow
+            android:id="@+id/row_buttons">
+
+            <Button
+                android:id="@+id/button_add_api_key"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButton1"
+                android:text="@string/add_api_keys" />
+
+            <Button
+                android:id="@+id/button_create_api_key"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButton2"
+                android:text="@string/create_api_key" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

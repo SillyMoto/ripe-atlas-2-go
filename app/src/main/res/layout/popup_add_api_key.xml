@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popupAddApiKeys"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <!--android:background="@drawable/popup_border">-->
+
+    <TextView
+        android:id="@+id/popupTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_api_keys"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_height="2dip"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/popupTitle"
+        android:background="@color/popupBackground" />
+
+   <!-- <TextView
+        android:id="@+id/popupTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/header_column7"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />-->
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_marginTop="20dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/textInputEditTextUUID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/header_column7"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+   <!-- <EditText
+        android:id="@+id/inputTextUuid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popupTitle2"
+        android:layout_marginTop="15dp"
+        android:hint="@string/header_column7"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />-->
+
+   <!-- <Button
+        android:id="@+id/popupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textInputLayout"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="25dp"
+        android:backgroundTint="@color/colorButton1"
+        android:text="@string/add_api_keys" />
+-->
+</RelativeLayout>
