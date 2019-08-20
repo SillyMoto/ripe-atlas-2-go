@@ -1,21 +1,38 @@
 package de.beuth.master.classes;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Credit {
+    @SerializedName("estimated_daily_expenditure")
     private int estimatedDailyExpenditure;
+    @SerializedName("current_balance")
     private int currentBalance;
+    @SerializedName("past_day_credits_spent")
     private int pastDayCreditsSpent;
+    @SerializedName("estimated_daily_income")
     private int estimatedDailyIncome;
+    @SerializedName("past_day_measurement_results")
     private int pastDayMeasurementResults;
+    @SerializedName("calculation_time")
     private Date calculationTime;
+    @SerializedName("income_items")
     private String incomeItems;
+    @SerializedName("estimated_daily_balance")
     private int estimatedDaily_balance;
+    @SerializedName("last_date_credited")
+    private Date lastDateCredited;
+    @SerializedName("last_date_debited")
+    private Date lastDateDebited;
+    @SerializedName("transactions")
     private String transactions;
+    @SerializedName("expense_items")
     private String expenseItems;
+    @SerializedName("estimated_runout_seconds")
     private int estimatedRunoutSeconds;
 
-    public Credit(int estimatedDailyExpenditure, int currentBalance, int pastDayCreditsSpent, int estimatedDailyIncome, int pastDayMeasurementResults, Date calculationTime, String incomeItems, int estimatedDaily_balance, String transactions, String expenseItems, int estimatedRunoutSeconds) {
+    public Credit(int estimatedDailyExpenditure, int currentBalance, int pastDayCreditsSpent, int estimatedDailyIncome, int pastDayMeasurementResults, Date calculationTime, String incomeItems, int estimatedDaily_balance, Date lastDateCredited, Date lastDateDebited, String transactions, String expenseItems, int estimatedRunoutSeconds) {
         this.estimatedDailyExpenditure = estimatedDailyExpenditure;
         this.currentBalance = currentBalance;
         this.pastDayCreditsSpent = pastDayCreditsSpent;
@@ -24,6 +41,8 @@ public class Credit {
         this.calculationTime = calculationTime;
         this.incomeItems = incomeItems;
         this.estimatedDaily_balance = estimatedDaily_balance;
+        this.lastDateCredited = lastDateCredited;
+        this.lastDateDebited = lastDateDebited;
         this.transactions = transactions;
         this.expenseItems = expenseItems;
         this.estimatedRunoutSeconds = estimatedRunoutSeconds;
@@ -91,6 +110,22 @@ public class Credit {
 
     public void setEstimatedDaily_balance(int estimatedDaily_balance) {
         this.estimatedDaily_balance = estimatedDaily_balance;
+    }
+
+    public Date getLastDateCredited() {
+        return lastDateCredited;
+    }
+
+    public void setLastDateCredited(Date lastDateCredited) {
+        this.lastDateCredited = lastDateCredited;
+    }
+
+    public Date getLastDateDebited() {
+        return lastDateDebited;
+    }
+
+    public void setLastDateDebited(Date lastDateDebited) {
+        this.lastDateDebited = lastDateDebited;
     }
 
     public String getTransactions() {

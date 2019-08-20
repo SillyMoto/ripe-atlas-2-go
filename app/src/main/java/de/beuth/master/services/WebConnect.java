@@ -7,9 +7,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonArray;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -74,7 +77,7 @@ public class WebConnect {
     }
 
     public void getRequestReturningString(String suffixURL, final CustomListener<String> listener) {
-        String url = prefixURL + suffixURL; //"/keys/?key=" + "5adcf6b3-ef7a-4acd-ad6a-b5c38d892a43";
+        String url = prefixURL + suffixURL;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -82,6 +85,29 @@ public class WebConnect {
                     public void onResponse(JSONObject response) {
                         Log.d(TAG + ": ", "getRequest Response : " + response.toString());
                         listener.getResult(response.toString());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (null != error.networkResponse) {
+                    Log.d(TAG + ": ", "Error Response code: " + error.networkResponse.statusCode);
+                    //listener.getResult(false); ?!?!?!?
+                    listener.getResult(null);
+                }
+            }
+        });
+
+        requestQueue.add(request);
+    }
+    public void getRequestReturningArray(String suffixURL, final CustomListener<JSONArray> listener) {
+        String url = prefixURL + suffixURL;
+
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG + ": ", "getRequest Response : " + response.toString());
+                        listener.getResult(response);
                     }
                 }, new Response.ErrorListener() {
             @Override

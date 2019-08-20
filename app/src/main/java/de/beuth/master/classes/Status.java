@@ -1,24 +1,30 @@
 package de.beuth.master.classes;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Status {
-    private int ID;
+public class Status implements Serializable {
+    @SerializedName("id")
+    private int id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("when")
     private Date when;
 
-    public Status(int ID, String name, Date when) {
-        this.ID = ID;
+    public Status(int id, String name, Date when) {
+        this.id = id;
         this.name = name;
         this.when = when;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

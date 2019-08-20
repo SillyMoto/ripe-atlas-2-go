@@ -1,57 +1,95 @@
 package de.beuth.master.classes;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Measurement {
+public class Measurement implements Serializable {
+    @SerializedName("af")
     private int af;
+    @SerializedName("creation_time")
     private Date creationTime;
+    @SerializedName("credits_per_result")
     private int creditsPerResult;
+    @SerializedName("description")
     private String description;
+    @SerializedName("estimated_results_per_day")
     private int estimatedResultsPerDay;
+    @SerializedName("group")
     private String group;
-    private int groudID;
+    @SerializedName("group_id")
+    private int groupID;
+    @SerializedName("id")
     private int ID;
+    @SerializedName("in_wifi_group")
     private Boolean inWifiGroup;
+    @SerializedName("interval")
     private int interval;
+    @SerializedName("is_all_scheduled")
     private Boolean isAllScheduled;
+    @SerializedName("is_one_off")
     private Boolean isOneOff;
+    @SerializedName("is_public")
     private Boolean isPublic;
+    @SerializedName("packet_interval")
+    private int packetInterval;
+    @SerializedName("packets")
     private int packets;
+    @SerializedName("participant_count")
     private int participantCount;
+    @SerializedName("probes_requested")
     private int probesRequested;
+    @SerializedName("probes_scheduled")
     private int probesScheduled;
+    @SerializedName("resolve_on_probe")
     private Boolean resolveOnProbe;
-    private int resolvedIps;
+    @SerializedName("resolved_ips")
+    private ArrayList<String> resolvedIps;
+    @SerializedName("result")
     private String result;
+    @SerializedName("size")
     private int size;
+    @SerializedName("spread")
     private int spread;
+    @SerializedName("start_time")
     private Date startTime;
+    @SerializedName("status")
     private Status status;
+    @SerializedName("stop_time")
     private Date stopTime;
+    @SerializedName("tags")
     private ArrayList<String> tags;
+    @SerializedName("target")
     private String target;
+    @SerializedName("target_asn")
     private int targetASN;
+    @SerializedName("target_ip")
     private String targetIP;
+    @SerializedName("target_prefix")
     private String targetPrefix;
+    @SerializedName("type")
+    private String type;
 
     Measurement() {
     }
 
-    public Measurement(int af, Date creationTime, int creditsPerResult, String description, int estimatedResultsPerDay, String group, int groudID, int ID, Boolean inWifiGroup, int interval, Boolean isAllScheduled, Boolean isOneOff, Boolean isPublic, int packets, int participantCount, int probesRequested, int probesScheduled, Boolean resolveOnProbe, int resolvedIps, String result, int size, int spread, Date startTime, Status status, Date stopTime, ArrayList<String> tags, String target, int targetASN, String targetIP, String targetPrefix) {
+    public Measurement(int af, Date creationTime, int creditsPerResult, String description, int estimatedResultsPerDay, String group, int groupID, int ID, Boolean inWifiGroup, int interval, Boolean isAllScheduled, Boolean isOneOff, Boolean isPublic, int packetInterval, int packets, int participantCount, int probesRequested, int probesScheduled, Boolean resolveOnProbe, ArrayList<String> resolvedIps, String result, int size, int spread, Date startTime, Status status, Date stopTime, ArrayList<String> tags, String target, int targetASN, String targetIP, String targetPrefix, String type) {
         this.af = af;
         this.creationTime = creationTime;
         this.creditsPerResult = creditsPerResult;
         this.description = description;
         this.estimatedResultsPerDay = estimatedResultsPerDay;
         this.group = group;
-        this.groudID = groudID;
+        this.groupID = groupID;
         this.ID = ID;
         this.inWifiGroup = inWifiGroup;
         this.interval = interval;
         this.isAllScheduled = isAllScheduled;
         this.isOneOff = isOneOff;
         this.isPublic = isPublic;
+        this.packetInterval = packetInterval;
         this.packets = packets;
         this.participantCount = participantCount;
         this.probesRequested = probesRequested;
@@ -69,6 +107,7 @@ public class Measurement {
         this.targetASN = targetASN;
         this.targetIP = targetIP;
         this.targetPrefix = targetPrefix;
+        this.type = type;
     }
 
     public int getAf() {
@@ -119,12 +158,12 @@ public class Measurement {
         this.group = group;
     }
 
-    public int getGroudID() {
-        return groudID;
+    public int getGroupID() {
+        return groupID;
     }
 
-    public void setGroudID(int groudID) {
-        this.groudID = groudID;
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
     }
 
     public int getID() {
@@ -175,6 +214,14 @@ public class Measurement {
         isPublic = aPublic;
     }
 
+    public int getPacketInterval() {
+        return packetInterval;
+    }
+
+    public void setPacketInterval(int packetInterval) {
+        this.packetInterval = packetInterval;
+    }
+
     public int getPackets() {
         return packets;
     }
@@ -215,11 +262,11 @@ public class Measurement {
         this.resolveOnProbe = resolveOnProbe;
     }
 
-    public int getResolvedIps() {
+    public ArrayList<String> getResolvedIps() {
         return resolvedIps;
     }
 
-    public void setResolvedIps(int resolvedIps) {
+    public void setResolvedIps(ArrayList<String> resolvedIps) {
         this.resolvedIps = resolvedIps;
     }
 
@@ -309,5 +356,13 @@ public class Measurement {
 
     public void setTargetPrefix(String targetPrefix) {
         this.targetPrefix = targetPrefix;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

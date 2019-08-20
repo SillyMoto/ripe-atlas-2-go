@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(MainActivity.this, MeasurementActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_credits) {
-
+            Intent i = new Intent(MainActivity.this, CreditActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_api_keys) {
             Intent i = new Intent(MainActivity.this, ApiKeysActivity.class);
             startActivity(i);

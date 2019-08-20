@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import de.beuth.master.classes.ApiKey;
 import de.beuth.master.ripeatlas2go.R;
 
-public class ListViewAdapter extends BaseAdapter {
+public class ListViewApiKeysAdapter extends BaseAdapter {
 
     private  ArrayList<ApiKey> apiKeys;
     private Activity activity;
 
-    public ListViewAdapter(Activity activity, ArrayList<ApiKey> apiKeys) {
+    public ListViewApiKeysAdapter(Activity activity, ArrayList<ApiKey> apiKeys) {
         super();
         this.activity = activity;
         this.apiKeys = apiKeys;
@@ -56,7 +56,7 @@ public class ListViewAdapter extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.listview_row, null);
+            convertView = inflater.inflate(R.layout.listview_api_keys_row, null);
             holder = new ViewHolder();
             holder.mUuid = convertView.findViewById(R.id.uuid);
             holder.mLabel = convertView.findViewById(R.id.label);

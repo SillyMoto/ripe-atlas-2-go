@@ -1,10 +1,10 @@
 package de.beuth.master.ripeatlas2go;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,40 +28,47 @@ import java.util.Date;
 
 import de.beuth.master.classes.ApiKey;
 import de.beuth.master.classes.Permission;
+import de.beuth.master.services.ArrayListAdapter;
 import de.beuth.master.services.CustomListener;
-import de.beuth.master.services.ListViewAdapter;
+import de.beuth.master.services.ListViewApiKeysAdapter;
 import de.beuth.master.services.WebConnect;
 
-public class ApiKeysActivity extends Activity {
+public class ApiKeysActivity extends AppCompatActivity {
 
     final String KEYS_URL = "/keys";
     final String API_KEYS_URL = "/?key=";
+    final String API_KEYS = "apiKeys";
     Context context = this;
     PopupWindow popUp;
-    /** ApiKeys stored in ArrayList variable*/
+    /**
+     * ApiKeys stored in ArrayList variable
+     */
     private ArrayList<ApiKey> apiKeys;
-    /** Custom BaseAdapter for the ListView*/
-    ListViewAdapter adapter;
+    /**
+     * Custom BaseAdapter for the ListView
+     */
+    ListViewApiKeysAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WebConnect.getInstance(this);
         setContentView(R.layout.activity_api_keys);
+
         // Define ListView and Adapter
-        apiKeys = new ArrayList<>();
+        apiKeys = ArrayListAdapter.getApiKeyArrayList(API_KEYS, getApplicationContext());
+        System.out.println(API_KEYS + apiKeys + getApplicationContext());
+        //apiKeys = new ArrayList<>();
         final ListView listView = findViewById(R.id.list_view_api_keys);
-        adapter = new ListViewAdapter(this, apiKeys);
+        adapter = new ListViewApiKeysAdapter(this, apiKeys);
         listView.setAdapter(adapter);
-        listView.setDividerHeight(adapter.getCount()*15);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Object item = listView.getItemAtPosition(position);
-            showPopup(R.layout.popup_show_api_key, item);
-        }
-    });
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object item = listView.getItemAtPosition(position);
+                showPopup(R.layout.popup_show_api_key, item);
+            }
+        });
         // Define Buttons and onClickMethods
         Button buttonAdd = findViewById(R.id.button_add_api_key);
         Button buttonCreate = findViewById(R.id.button_create_api_key);
@@ -81,7 +88,7 @@ public class ApiKeysActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (popUp.isShowing()) {
+        if (popUp != null && popUp.isShowing()) {
             popUp.dismiss();
         } else {
             super.onBackPressed();
@@ -98,14 +105,14 @@ public class ApiKeysActivity extends Activity {
             // set prompts.xml to alertDialog builder
             alertDialogBuilder.setView(popupView);
 
-            if(resource == R.layout.popup_show_api_key && item != null){
+            if (resource == R.layout.popup_show_api_key && item != null) {
                 ApiKey apiKey = (ApiKey) item;
                 TextView view = popupView.findViewById(R.id.popup_body1);
                 view.setText(apiKey.getUuid());
                 view = popupView.findViewById(R.id.popup_body2);
-                if(apiKey.getCreatedAt() != null){
+                if (apiKey.getCreatedAt() != null) {
                     view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getCreatedAt()));
-                }else{
+                } else {
                     view.setText("-");
                 }
                 view = popupView.findViewById(R.id.popup_body3);
@@ -113,27 +120,27 @@ public class ApiKeysActivity extends Activity {
                 view = popupView.findViewById(R.id.popup_body4);
                 view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(System.currentTimeMillis()));
                 view = popupView.findViewById(R.id.popup_body5);
-                if(apiKey.getValidFrom() != null){
+                if (apiKey.getValidFrom() != null) {
                     view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getValidFrom()));
-                }else{
+                } else {
                     view.setText("-");
                 }
                 view = popupView.findViewById(R.id.popup_body6);
-                if(apiKey.getValidTo() != null){
+                if (apiKey.getValidTo() != null) {
                     view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getValidTo()));
-                }else{
+                } else {
                     view.setText("-");
                 }
                 view = popupView.findViewById(R.id.popup_body7);
                 view.setText(apiKey.getEnabled().toString());
                 view = popupView.findViewById(R.id.popup_body8);
                 StringBuilder permission = new StringBuilder();
-                if(apiKey.getPermissions() != null){
-                    for(String s : apiKey.getPermissions()){
+                if (apiKey.getPermissions() != null) {
+                    for (String s : apiKey.getPermissions()) {
                         permission.append(s).append(",");
                     }
                     view.setText(permission);
-                }else{
+                } else {
                     view.setText("-");
                 }
             }
@@ -143,7 +150,7 @@ public class ApiKeysActivity extends Activity {
                     setPositiveButton("OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-                                    switch(resource) {
+                                    switch (resource) {
                                         case R.layout.popup_add_api_key:
                                             getApiKeys(inputText.getText().toString());
                                         case R.layout.popup_create_api_key:
@@ -185,9 +192,9 @@ public class ApiKeysActivity extends Activity {
                             ApiKey ak = gson.fromJson(results.getJSONObject(i).toString(), ApiKey.class);
                             apiKeys.add(ak);
                         }
-                        Log.d("ApiKeys Added Keys\t", apiKeys.toString());
-                        //add ApiKeys to ApiKeyList
-                        //createApiKeyList();
+                        // SharedPreferences: Save results to ApiKeyList
+                        ArrayListAdapter.saveApiKeyArrayList(apiKeys, API_KEYS, context);
+                        Log.d(API_KEYS, ArrayListAdapter.getApiKeyArrayList(API_KEYS, context).toString());
                         adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();

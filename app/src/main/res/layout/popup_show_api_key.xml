@@ -30,8 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/header_column7"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:text="@string/header_column1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
                 android:id="@+id/popup_body1"
@@ -45,8 +45,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/created"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:text="@string/header_column2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
                 android:id="@+id/popup_body2"
@@ -60,8 +60,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/header_column8"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:text="@string/header_column3"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
                 android:id="@+id/popup_body3"
@@ -75,8 +75,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/current_time"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:text="@string/header_column4"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
                 android:id="@+id/popup_body4"
@@ -90,8 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/header_column9"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:text="@string/header_column5"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
                 android:id="@+id/popup_body5"
@@ -105,8 +105,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/header_column10"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:text="@string/header_column6"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
                 android:id="@+id/popup_body6"
@@ -120,8 +120,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/header_column11"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:text="@string/header_column7"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
                 android:id="@+id/popup_body7"
@@ -135,8 +135,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/header_column12"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+                android:text="@string/header_column8"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <TextView
                 android:id="@+id/popup_body8"

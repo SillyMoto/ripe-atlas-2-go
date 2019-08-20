@@ -1,121 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MeasurementActivity">
 
     <TableLayout
-        android:id="@+id/table_measurement"
+        android:id="@+id/table_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_alignParentTop="true"
+        android:stretchColumns="0,1,2,3,4,5">
 
         <TableRow
-            android:id="@+id/raw_header_msm"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="15dp">
+            android:id="@+id/row_header">
 
             <TextView
                 android:id="@+id/column1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:text="@string/header_column1" />
 
             <TextView
                 android:id="@+id/column2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:text="@string/header_column2" />
 
             <TextView
                 android:id="@+id/column3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:text="@string/header_column3" />
 
             <TextView
                 android:id="@+id/column4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:text="@string/header_column4" />
 
             <TextView
                 android:id="@+id/column5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:text="@string/header_column5" />
 
             <TextView
                 android:id="@+id/column6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:text="@string/header_column6" />
 
         </TableRow>
 
         <View
             android:layout_height="2dip"
+            android:layout_width="match_parent"
             android:background="@color/colorPrimaryDark" />
-
 
     </TableLayout>
 
-    <Space
-        android:id="@+id/space"
-        android:layout_width="0dp"
-        android:layout_height="12dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/table_measurement" />
+    <ListView
+        android:id="@+id/list_view_measurements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/table_buttons"
+        android:layout_below="@+id/table_header"
+        android:layout_gravity="center" />
 
-    <TableRow
-        android:id="@+id/row_buttons"
-        android:layout_width="0dp"
-        android:layout_height="674dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginHorizontal="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/space">
+    <TableLayout
+        android:id="@+id/table_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:stretchColumns="0,1">
 
-        <Button
-            android:id="@+id/button_add_msm"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/add_msm"
-            android:background="@color/colorButton1"
-            style="?android:attr/borderlessButtonStyle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        <TableRow
+            android:id="@+id/row_buttons">
 
-        <Button
-            android:id="@+id/button_create_msm"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/create_msm"
-            android:background="@color/colorButton2"
-            android:layout_marginStart="20dp"
-            style="?android:attr/borderlessButtonStyle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </TableRow>
+            <Button
+                android:id="@+id/button_add_msm"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButton1"
+                android:text="@string/add_msm" />
 
-</android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/button_create_msm"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorButton2"
+                android:text="@string/create_msm" />
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
