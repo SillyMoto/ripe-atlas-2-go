@@ -61,6 +61,7 @@ import de.beuth.master.services.WebConnect;
 public class ShowMeasurementFrame2 extends Fragment {
     // the fragment initialization parameters
     private static final String MSM = "measurement";
+    private static final Integer AMOUNT_OF_RESULTS = 11;
 
     private Measurement mMsm;
     private HashMap<String, List<Date>> xAxisByProbes;
@@ -319,21 +320,17 @@ public class ShowMeasurementFrame2 extends Fragment {
     private ArrayList<Entry> setYAxisValues(String prbID) {
         ArrayList<Entry> yVals = new ArrayList<>();
         if (yAxisByProbes != null) {
-            // only the last 10 results
-            if (yAxisByProbes.size() < 10) {
-                for (int i = 0; i < yAxisByProbes.size(); i++) {
+            if (yAxisByProbes.get(prbID) != null) {
+                // only the last 11 results
+                int tmp = AMOUNT_OF_RESULTS;
+                if (yAxisByProbes.get(prbID).size() < AMOUNT_OF_RESULTS) {
+                    tmp = yAxisByProbes.get(prbID).size();
+                }
+                for (int i = 0; i < tmp; i++) {
                     float d = yAxisByProbes.get(prbID).get(i).floatValue();
                     yVals.add(new Entry(i, d));
                 }
-            } else {
-                int s = 0;
-                for (int i = yAxisByProbes.size() - 10; i < yAxisByProbes.size(); i++) {
-                    float d = yAxisByProbes.get(prbID).get(i).floatValue();
-                    yVals.add(new Entry(s, d));
-                    s++;
-                }
             }
-
         } else {
             yVals.add(new Entry(0, 60));
             yVals.add(new Entry(1, 48));
@@ -347,17 +344,17 @@ public class ShowMeasurementFrame2 extends Fragment {
     private ArrayList<String> setXAxisValues(String prbID) {
         ArrayList<String> xVals = new ArrayList<>();
         if (xAxisByProbes != null) {
-            Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            if (xAxisByProbes.size() < 10) {
-                for (int i = 0; i < xAxisByProbes.size(); i++) {
-                    xVals.add(formatter.format(xAxisByProbes.get(prbID).get(i)));
+            if (xAxisByProbes.get(prbID) != null) {
+                Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                // only the last 11 results
+                int tmp = AMOUNT_OF_RESULTS;
+                if (xAxisByProbes.get(prbID).size() < AMOUNT_OF_RESULTS) {
+                    tmp = xAxisByProbes.get(prbID).size();
                 }
-            } else {
-                for (int i = xAxisByProbes.size() - 10; i < xAxisByProbes.size(); i++) {
+                for (int i = 0; i < tmp; i++) {
                     xVals.add(formatter.format(xAxisByProbes.get(prbID).get(i)));
                 }
             }
-
         } else {
             xVals.add("Eins");
             xVals.add("Zwei");

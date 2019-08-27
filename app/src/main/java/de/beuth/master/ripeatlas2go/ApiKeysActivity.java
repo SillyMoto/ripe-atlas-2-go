@@ -3,6 +3,7 @@ package de.beuth.master.ripeatlas2go;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,9 +15,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +52,9 @@ public class ApiKeysActivity extends AppCompatActivity {
      * Custom BaseAdapter for the ListView
      */
     ListViewApiKeysAdapter adapter;
+
+    //qr code scanner object
+    private IntentIntegrator qrScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +112,9 @@ public class ApiKeysActivity extends AppCompatActivity {
             // set prompts.xml to alertDialog builder
             alertDialogBuilder.setView(popupView);
 
+            //intializing scan object
+            qrScan = new IntentIntegrator(this);
+
             if (resource == R.layout.popup_show_api_key && item != null) {
                 ApiKey apiKey = (ApiKey) item;
                 TextView view = popupView.findViewById(R.id.popup_body1);
@@ -120,20 +130,6 @@ public class ApiKeysActivity extends AppCompatActivity {
                 view = popupView.findViewById(R.id.popup_body4);
                 view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(System.currentTimeMillis()));
                 view = popupView.findViewById(R.id.popup_body5);
-                if (apiKey.getValidFrom() != null) {
-                    view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getValidFrom()));
-                } else {
-                    view.setText("-");
-                }
-                view = popupView.findViewById(R.id.popup_body6);
-                if (apiKey.getValidTo() != null) {
-                    view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getValidTo()));
-                } else {
-                    view.setText("-");
-                }
-                view = popupView.findViewById(R.id.popup_body7);
-                view.setText(apiKey.getEnabled().toString());
-                view = popupView.findViewById(R.id.popup_body8);
                 StringBuilder permission = new StringBuilder();
                 if (apiKey.getPermissions() != null) {
                     for (String s : apiKey.getPermissions()) {
@@ -143,6 +139,20 @@ public class ApiKeysActivity extends AppCompatActivity {
                 } else {
                     view.setText("-");
                 }
+                view = popupView.findViewById(R.id.popup_body6);
+                if (apiKey.getValidFrom() != null) {
+                    view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getValidFrom()));
+                } else {
+                    view.setText("-");
+                }
+                view = popupView.findViewById(R.id.popup_body7);
+                if (apiKey.getValidTo() != null) {
+                    view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getValidTo()));
+                } else {
+                    view.setText("-");
+                }
+                view = popupView.findViewById(R.id.popup_body8);
+                view.setText(apiKey.getEnabled().toString());
             }
 
             // set dialog message
@@ -166,6 +176,15 @@ public class ApiKeysActivity extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             });
+            if(resource == R.layout.popup_add_api_key){
+                //set Scan Button
+                alertDialogBuilder.setNeutralButton("Scan QR-Code",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                qrScan.initiateScan();
+                            }
+                        });
+            }
 
             // create alertDialog
             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -173,6 +192,24 @@ public class ApiKeysActivity extends AppCompatActivity {
             alertDialog.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    //Getting the scan results
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            //if qrcode has nothing in it
+            if (result.getContents() == null) {
+                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+            } else {
+                //if qr contains data
+                Toast.makeText(this, result.getContents(), Toast.LENGTH_SHORT).show();
+                getApiKeys(result.getContents());
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

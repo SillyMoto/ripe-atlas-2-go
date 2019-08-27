@@ -12,16 +12,19 @@
             android:ellipsize = "end"
             android:padding = "5dp"
             android:text = "@string/header_column7"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
         <TextView
             android:id = "@+id/label"
             android:layout_width = "0dp"
             android:layout_height = "match_parent"
-            android:layout_weight = "2"
+            android:layout_weight = "1.75"
             android:ellipsize = "end"
             android:padding = "5dp"
+            android:layout_gravity="bottom"
             android:text = "@string/header_column8"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
         <TextView
@@ -32,16 +35,18 @@
             android:ellipsize = "end"
             android:padding = "5dp"
             android:text = "@string/header_column9"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
          <TextView
             android:id = "@+id/valid_to"
             android:layout_width = "0dp"
             android:layout_height = "match_parent"
-            android:layout_weight = "1"
+            android:layout_weight = "1.5"
             android:ellipsize = "end"
             android:padding = "5dp"
             android:text = "@string/header_column10"
+             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
         <TextView
@@ -52,6 +57,7 @@
             android:ellipsize = "end"
             android:padding = "5dp"
             android:text = "@string/header_column11"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
 </LinearLayout>

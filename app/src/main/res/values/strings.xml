@@ -90,4 +90,7 @@
     <string name="calculation_time">Calculation Time</string>
     <string name="recipient">Recipient</string>
     <string name="amount">Amount</string>
+    <string name="check_your_measurement_activities">Check your Measurement activities</string>
+    <string name="check_your_credit_activities">Check your Credit activities</string>
+    <string name="check_your_api_keys_activities">Check your API Keys activities</string>
 </resources>

@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_api_keys"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <View
         android:id="@+id/line"
         android:layout_height="2dip"
         android:layout_width="wrap_content"
         android:layout_below="@+id/popupTitle"
-        android:background="@color/popupBackground" />
+        android:background="@color/colorPrimaryDark" />
 
    <!-- <TextView
         android:id="@+id/popupTitle2"
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="15dp">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/textInputEditTextUUID"

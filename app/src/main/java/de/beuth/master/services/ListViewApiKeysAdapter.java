@@ -76,7 +76,7 @@ public class ListViewApiKeysAdapter extends BaseAdapter {
         if(apiKey.getValidFrom() != null) {
             holder.mValidFrom.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getValidFrom()));
         } else {
-            holder.mValidTo.setText("-");
+            holder.mValidFrom.setText("-");
         }
         if(apiKey.getValidTo() != null) {
             holder.mValidTo.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(apiKey.getValidTo()));

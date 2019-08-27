@@ -35,6 +35,30 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+        View viewMsm = findViewById(R.id.card_view_msm);
+        viewMsm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, MeasurementActivity.class);
+                startActivity(i);
+            }
+        });
+        View viewCdt = findViewById(R.id.card_view_credits);
+        viewCdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, CreditActivity.class);
+                startActivity(i);
+            }
+        });
+        View viewApk = findViewById(R.id.card_view_api_keys);
+        viewApk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, ApiKeysActivity.class);
+                startActivity(i);
+            }
+        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/transfer_credits"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <View
         android:id="@+id/line"
         android:layout_height="2dip"
         android:layout_width="wrap_content"
         android:layout_below="@+id/popup_title"
-        android:background="@color/popupBackground" />
+        android:background="@color/colorPrimaryDark" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_recipient"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/input_layout_recipient"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="15dp">
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_edit_text_amount"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/input_layout_amount"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:text="@string/api_key"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
     <Spinner

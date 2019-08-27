@@ -25,7 +25,8 @@
             <View
                 android:id="@+id/line"
                 android:layout_width="wrap_content"
-                android:layout_height="2dip" />
+                android:layout_height="2dip"
+                android:background="@color/colorPrimaryDark"/>
 
             <TextView
                 android:id="@+id/overview_subtitle1"
@@ -99,7 +100,8 @@
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="2dip" />
+                android:layout_height="2dip"
+                android:background="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/target_subtitle1"
@@ -157,7 +159,8 @@
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="2dip" />
+                android:layout_height="2dip"
+                android:background="@color/colorPrimaryDark" />
 
 
             <TextView
@@ -182,8 +185,8 @@
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="2dip" />
-
+                android:layout_height="2dip"
+                android:background="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/status_subtitle1"
@@ -258,7 +261,8 @@
 
             <View
                 android:layout_width="wrap_content"
-                android:layout_height="2dip" />
+                android:layout_height="2dip"
+                android:background="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/probes_subtitle1"

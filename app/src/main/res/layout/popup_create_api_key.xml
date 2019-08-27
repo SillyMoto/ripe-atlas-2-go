@@ -11,14 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/create_api_key"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
     <View
         android:id="@+id/line"
         android:layout_width="wrap_content"
-        android:layout_height="2dip" />
-    <!--        android:layout_below="@+id/popupTitle"
-        android:background="@color/cardview_dark_background"-->
+        android:layout_height="2dip"
+        android:background="@color/colorPrimaryDark"/>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -31,11 +31,16 @@
             android:id="@+id/popup_subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:text="@string/introduction"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         <!--         android:layout_below="@+id/line"
          android:layout_alignParentStart="true"-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dip"
+            android:background="@color/colorPrimary"/>
+
         <TextView
             android:id="@+id/popup_body1"
             android:layout_width="wrap_content"
@@ -53,9 +58,14 @@
 
             android:layout_marginTop="20dp"
             android:text="@string/creating_api_keys"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         <!--        android:layout_below="@+id/popup_body1"
         android:layout_alignParentStart="true"-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dip"
+            android:background="@color/colorPrimary"/>
+
         <TextView
             android:id="@+id/popup_body2"
             android:layout_width="wrap_content"
