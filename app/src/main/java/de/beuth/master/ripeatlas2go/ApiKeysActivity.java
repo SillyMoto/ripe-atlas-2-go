@@ -28,14 +28,14 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import de.beuth.master.classes.ApiKey;
-import de.beuth.master.classes.Permission;
 import de.beuth.master.services.ArrayListAdapter;
 import de.beuth.master.services.CustomListener;
 import de.beuth.master.services.ListViewApiKeysAdapter;
 import de.beuth.master.services.WebConnect;
+
+import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 public class ApiKeysActivity extends AppCompatActivity {
 
@@ -63,9 +63,13 @@ public class ApiKeysActivity extends AppCompatActivity {
         setContentView(R.layout.activity_api_keys);
 
         // Define ListView and Adapter
-        apiKeys = ArrayListAdapter.getApiKeyArrayList(API_KEYS, getApplicationContext());
+        if (ArrayListAdapter.getApiKeyArrayList(API_KEYS, getApplicationContext()) != null) {
+            apiKeys = ArrayListAdapter.getApiKeyArrayList(API_KEYS, getApplicationContext());
+        } else {
+            apiKeys = new ArrayList<>();
+        }
         System.out.println(API_KEYS + apiKeys + getApplicationContext());
-        //apiKeys = new ArrayList<>();
+
         final ListView listView = findViewById(R.id.list_view_api_keys);
         adapter = new ListViewApiKeysAdapter(this, apiKeys);
         listView.setAdapter(adapter);
@@ -153,6 +157,11 @@ public class ApiKeysActivity extends AppCompatActivity {
                 }
                 view = popupView.findViewById(R.id.popup_body8);
                 view.setText(apiKey.getEnabled().toString());
+            } else if(resource == R.layout.popup_create_api_key){
+                TextView view = popupView.findViewById(R.id.popup_body1);
+                view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+                view = popupView.findViewById(R.id.popup_body2);
+                view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
             }
 
             // set dialog message
@@ -176,7 +185,7 @@ public class ApiKeysActivity extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             });
-            if(resource == R.layout.popup_add_api_key){
+            if (resource == R.layout.popup_add_api_key) {
                 //set Scan Button
                 alertDialogBuilder.setNeutralButton("Scan QR-Code",
                         new DialogInterface.OnClickListener() {
@@ -195,17 +204,17 @@ public class ApiKeysActivity extends AppCompatActivity {
         }
     }
 
-    //Getting the scan results
+    //Handle the scan result
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
-            //if qrcode has nothing in it
+            //if scanner doesn't find an qr-code
             if (result.getContents() == null) {
-                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "QR-Code Not Found", Toast.LENGTH_LONG).show();
             } else {
-                //if qr contains data
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_SHORT).show();
+                //if scanner find qr-code
+                Toast.makeText(this, "QR-Code Found", Toast.LENGTH_SHORT).show();
                 getApiKeys(result.getContents());
             }
         } else {
@@ -214,8 +223,9 @@ public class ApiKeysActivity extends AppCompatActivity {
     }
 
     private void getApiKeys(final String apiKey) {
-        String suffixURL = KEYS_URL + API_KEYS_URL + "5adcf6b3-ef7a-4acd-ad6a-b5c38d892a43"; // apikey;
-        WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String>() {
+        //String suffixURL = KEYS_URL + API_KEYS_URL + "5adcf6b3-ef7a-4acd-ad6a-b5c38d892a43"; // apikey;
+        String suffixURL = KEYS_URL + API_KEYS_URL + apiKey;
+        WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String, String>() {
             @Override
             public void getResult(String result) {
                 if (!result.isEmpty()) {
@@ -238,36 +248,13 @@ public class ApiKeysActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
-    }
 
-    private void createApiKeys(final String apiKey, String label, Date validFrom, Date validTo, Permission permission) {
-        String suffixURL = KEYS_URL + API_KEYS_URL + "5adcf6b3-ef7a-4acd-ad6a-b5c38d892a43"; // apikey;
-        WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String>() {
             @Override
-            public void getResult(String result) {
-                if (!result.isEmpty()) {
-                    Log.i("getRequest\tgetResult\t", result);
-                    Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-                    JSONObject jsonResult;
-                    try {
-                        jsonResult = new JSONObject(result);
-                        JSONArray results = jsonResult.getJSONArray("results");
-                        for (int i = 0; i < results.length(); i++) {
-                            ApiKey ak = gson.fromJson(results.getJSONObject(i).toString(), ApiKey.class);
-                            apiKeys.add(ak);
-                        }
-                        Log.d("ApiKeys Added Keys\t", apiKeys.toString());
-                        //add ApiKeys to ApiKeyList
-                        //createApiKeyList();
-                        adapter.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+            public void getError(String error) {
+                if(error != null){
+                    Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
 }
-

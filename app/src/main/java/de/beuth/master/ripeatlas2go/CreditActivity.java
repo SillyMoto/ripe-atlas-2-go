@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,21 +18,17 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import de.beuth.master.classes.ApiKey;
 import de.beuth.master.classes.Credit;
-import de.beuth.master.classes.Measurement;
 import de.beuth.master.services.ArrayListAdapter;
 import de.beuth.master.services.CustomListener;
-import de.beuth.master.services.ListViewMsmsAdapter;
 import de.beuth.master.services.WebConnect;
 
 public class CreditActivity extends AppCompatActivity {
@@ -96,11 +91,8 @@ public class CreditActivity extends AppCompatActivity {
             View popupView = inflater.inflate(resource, null);
 
             final Spinner spinner = popupView.findViewById(R.id.popup_spinner1);
-            TextInputEditText inputEditText = popupView.findViewById(R.id.input_edit_text_recipient);
-            final String recipient = inputEditText.getText().toString();
-            inputEditText = popupView.findViewById(R.id.input_edit_text_amount);
-            final int amount = Integer.valueOf(inputEditText.getText().toString());
-
+            final TextInputEditText inputEditRecipient = popupView.findViewById(R.id.input_edit_text_recipient);
+            final TextInputEditText inputEditAmount = popupView.findViewById(R.id.input_edit_text_amount);
 
             // get apiKeys as a String Array for the spinner.
             String[] spinnerItems = new String[apiKeys.size()];
@@ -124,8 +116,17 @@ public class CreditActivity extends AppCompatActivity {
                                     switch (resource) {
                                         case R.layout.popup_check_credits:
                                             getCredits(spinner.getSelectedItem().toString());
+                                            break;
                                         case R.layout.popup_transfer_credits:
-                                            transferCredits(recipient, amount, spinner.getSelectedItem().toString());
+                                            if(inputEditRecipient.getText() != null && inputEditRecipient.getText().length() > 0 && inputEditAmount.getText() != null && inputEditAmount.getText().length() > 0){
+                                                String recipient = inputEditRecipient.getText().toString();
+                                                int amount = Integer.valueOf(inputEditAmount.getText().toString());
+                                                transferCredits(recipient, amount, spinner.getSelectedItem().toString());
+                                            }else{
+                                                Toast.makeText(getApplicationContext(), "Transfer Credits: Amount or Recipient is missing!", Toast.LENGTH_SHORT)
+                                                        .show();
+                                            }
+                                            break;
                                     }
                                 }
                             })
@@ -135,7 +136,6 @@ public class CreditActivity extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             });
-
             // create alertDialog
             AlertDialog alertDialog = alertDialogBuilder.create();
             // show it
@@ -149,7 +149,7 @@ public class CreditActivity extends AppCompatActivity {
         String apiKey = findApiKeyByLabel(apiKeyLabel);
         if (apiKey != null) {
             String suffixURL = CREDIT_URL + API_KEYS_URL + apiKey;
-            WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String>() {
+            WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String, String>() {
                 @Override
                 public void getResult(String result) {
                     if (!result.isEmpty()) {
@@ -166,6 +166,13 @@ public class CreditActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                    }
+                }
+
+                @Override
+                public void getError(String error) {
+                    if(error != null){
+                        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -186,16 +193,23 @@ public class CreditActivity extends AppCompatActivity {
         }
         if (apiKey != null) {
             String suffixURL = CREDIT_URL + TRANSFER_URL + API_KEYS_URL + apiKey;
-            WebConnect.getInstance().postRequestReturningString(suffixURL, json, new CustomListener<String>() {
+            WebConnect.getInstance().postRequestReturningString(suffixURL, json, new CustomListener<String, String>() {
                 @Override
                 public void getResult(String result) {
-                    if (!result.isEmpty()) {
+                    if (result != null && !result.isEmpty()) {
                         Log.i("getRequest\tgetResult\t", result);
                         Toast.makeText(getApplicationContext(), "Transfer Credits: Transfer successful!", Toast.LENGTH_SHORT)
                                 .show();
                     } else{
                         Toast.makeText(getApplicationContext(), "Transfer Credits: Transfer failed!", Toast.LENGTH_SHORT)
                                 .show();
+                    }
+                }
+
+                @Override
+                public void getError(String error) {
+                    if(error != null){
+                        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -218,17 +232,23 @@ public class CreditActivity extends AppCompatActivity {
         view.setText(String.valueOf(credit.getEstimatedRunoutSeconds()));
         view = findViewById(R.id.credits_subtitle6_body1);
         view.setText(String.valueOf(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(credit.getCalculationTime())));
-        view = findViewById(R.id.transactions_subtitle1_body1);
-        view.setText(String.valueOf(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(credit.getLastDateCredited())));
-        view = findViewById(R.id.transactions_subtitle2_body1);
-        view.setText(String.valueOf(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(credit.getLastDateDebited())));
+        if(credit.getLastDateCredited() != null){
+            view = findViewById(R.id.transactions_subtitle1_body1);
+            view.setText(String.valueOf(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(credit.getLastDateCredited())));
+        }
+
+        if(credit.getLastDateDebited() != null){
+            view = findViewById(R.id.transactions_subtitle2_body1);
+            view.setText(String.valueOf(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(credit.getLastDateDebited())));
+        }
     }
 
     private String findApiKeyByLabel(String apiKeyLabel) {
         String apiKey = null;
         for (ApiKey ak : apiKeys) {
-            if (ak.getLabel() == apiKeyLabel) {
+            if (ak.getLabel().equals(apiKeyLabel)) {
                 apiKey = ak.getUuid();
+                break;
             }
         }
         return apiKey;

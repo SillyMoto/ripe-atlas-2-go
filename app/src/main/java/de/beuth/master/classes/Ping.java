@@ -1,13 +1,19 @@
 package de.beuth.master.classes;
 
-public class Ping extends Measurement {
-    private int includeProbeID;
-    private int packetIntervall;
+import com.google.gson.annotations.SerializedName;
 
-    public Ping(int includeProbeID, int packetIntervall) {
+import java.io.Serializable;
+
+public class Ping extends Measurement implements Serializable {
+    @SerializedName("include_probe_id")
+    private int includeProbeID;
+    @SerializedName("packet_interval")
+    private int packetInterval;
+
+    public Ping(int includeProbeID, int packetInterval) {
         super();
         this.includeProbeID = includeProbeID;
-        this.packetIntervall = packetIntervall;
+        this.packetInterval = packetInterval;
     }
 
     public int getIncludeProbeID() {
@@ -18,11 +24,11 @@ public class Ping extends Measurement {
         this.includeProbeID = includeProbeID;
     }
 
-    public int getPacketIntervall() {
-        return packetIntervall;
+    public int getPacketInterval() {
+        return packetInterval;
     }
 
-    public void setPacketIntervall(int packetIntervall) {
-        this.packetIntervall = packetIntervall;
+    public void setPacketInterval(int packetIntervall) {
+        this.packetInterval = packetIntervall;
     }
 }

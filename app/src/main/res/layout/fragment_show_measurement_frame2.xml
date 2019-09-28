@@ -5,15 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.measurement.ShowMeasurementFrame2">
 
-    <ListView
-        android:id="@+id/list_view_measurements"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/line_chart1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

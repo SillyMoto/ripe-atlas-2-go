@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -40,12 +40,15 @@ import de.beuth.master.services.CustomListener;
 import de.beuth.master.services.ListViewMsmsAdapter;
 import de.beuth.master.services.WebConnect;
 
-import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
-
 public class MeasurementActivity extends AppCompatActivity {
 
-    final String MSM_URL = "/measurements/my";
-    final String API_KEYS_URL = "/?key=";
+    final String MSM_URL = "/measurements";
+    final String MSM_URL_MY = "/my";
+    final String MSM_URL_PING = "/?type=ping&";
+    final String MSM_URL_TRACEROUTE = "/?type=traceroute&";
+    final String MSM_URL_DNS = "/?type=dns&";
+    final String MSM_URL_SSL = "/?type=ssl&";
+    final String API_KEYS_URL = "key=";
     final String API_KEYS = "apiKeys";
     final String MSMS = "measurements";
     final String MSM = "measurement";
@@ -87,7 +90,7 @@ public class MeasurementActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object item = listView.getItemAtPosition(position);
-                Intent intent = new Intent(MeasurementActivity.this, ActivityShowMeasurement.class);
+                Intent intent = new Intent(MeasurementActivity.this, ShowMeasurementActivity.class);
                 intent.putExtra(MSM, (Serializable) item);
                 startActivity(intent);
             }
@@ -114,7 +117,10 @@ public class MeasurementActivity extends AppCompatActivity {
             LayoutInflater inflater = LayoutInflater.from(context);
             View popupView = inflater.inflate(resource, null);
 
-            final Spinner spinner = popupView.findViewById(R.id.popup_spinner1);
+            final Spinner spinnerMsm = popupView.findViewById(R.id.popup_spinner2);
+            final Spinner spinnerKey = popupView.findViewById(R.id.popup_spinner1);
+            final EditText editText = popupView.findViewById(R.id.popup_edit_text);
+
 
             // get apiKeys as a String Array for the spinner.
             String[] spinnerItems = new String[apiKeys.size()];
@@ -124,11 +130,29 @@ public class MeasurementActivity extends AppCompatActivity {
 
             ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItems);
             // set the spinners adapter to the previously created one.
-            spinner.setAdapter(spinnerAdapter);
+            spinnerKey.setAdapter(spinnerAdapter);
+
+            spinnerMsm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 5) {
+                        editText.setVisibility(View.VISIBLE);
+                    } else {
+                        editText.setVisibility(View.INVISIBLE);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    editText.setVisibility(View.INVISIBLE);
+                }
+            });
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
             // set prompts.xml to alertDialog builder
             alertDialogBuilder.setView(popupView);
+
 
             // set dialog message
             alertDialogBuilder.setCancelable(false).
@@ -137,7 +161,7 @@ public class MeasurementActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                                     switch (resource) {
                                         case R.layout.popup_add_msm:
-                                            getMsm(spinner.getSelectedItem().toString());
+                                            getMsm(spinnerMsm.getSelectedItemPosition(), spinnerKey.getSelectedItem().toString(), editText.getText().toString());
                                         case R.layout.popup_create_msm:
                                             dialog.cancel();
                                     }
@@ -159,35 +183,68 @@ public class MeasurementActivity extends AppCompatActivity {
         }
     }
 
-    private void getMsm(final String apiKeyLabel) {
+    private void getMsm(final int msmType, final String apiKeyLabel, String id) {
+        String suffixURL = MSM_URL;
+        switch (msmType) {
+            case 0:
+                suffixURL += MSM_URL_MY + "/?";
+                break;
+            case 1:
+                suffixURL += MSM_URL_MY + MSM_URL_PING;
+                break;
+            case 2:
+                suffixURL += MSM_URL_MY + MSM_URL_TRACEROUTE;
+                break;
+            case 3:
+                suffixURL += MSM_URL_MY + MSM_URL_DNS;
+                break;
+            case 4:
+                suffixURL += MSM_URL_MY + MSM_URL_SSL;
+                break;
+            case 5:
+                if (id != null && !id.isEmpty()) {
+                    suffixURL += id;
+                } else {
+                    Toast.makeText(getApplicationContext(), "No ID inserted!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                break;
+
+        }
         String apiKey = findApiKeyByLabel(apiKeyLabel);
         if (apiKey != null) {
-            String suffixURL = MSM_URL + API_KEYS_URL + apiKey;
-            WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String>() {
+            suffixURL += API_KEYS_URL + apiKey;
+            WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String, String>() {
                 @Override
                 public void getResult(String result) {
-                    if (!result.isEmpty()) {
+                    if (result != null) {
                         Log.i("getRequest\tgetResult\t", result);
                         //Gson gson = new GsonBuilder().setDateFormat(DateFormat.LONG).create(); //setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create(); //registerTypeAdapter(Date.class, new DateDeserializer()).create();
                         // Creates the json object which will manage the information received
                         GsonBuilder builder = new GsonBuilder();
 
                         // Register an adapter to manage the date types as long values
+                        // RIPE Atlas API returns UNIX timestamp --> * 1000
                         builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
                             public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                                return new Date(json.getAsJsonPrimitive().getAsLong());
+                                return new Date(json.getAsJsonPrimitive().getAsLong() * 1000);
                             }
                         });
 
                         Gson gson = builder.create();
 
-                        JSONObject jsonResult;
+                        //JSONObject jsonResult;
                         try {
-                            jsonResult = new JSONObject(result);
-                            JSONArray results = jsonResult.getJSONArray("results");
-                            for (int i = 0; i < results.length(); i++) {
-                                Measurement msm = gson.fromJson(results.getJSONObject(i).toString(), Measurement.class);
+                            JSONObject jsonResult = new JSONObject(result);
+                            if (msmType == 5) {
+                                Measurement msm = gson.fromJson(jsonResult.toString(), Measurement.class);
                                 msms.add(msm);
+                            } else {
+                                JSONArray results = jsonResult.getJSONArray("results");
+                                for (int i = 0; i < results.length(); i++) {
+                                    Measurement msm = gson.fromJson(results.getJSONObject(i).toString(), Measurement.class);
+                                    msms.add(msm);
+                                }
                             }
                             // SharedPreferences: Save results to MeasurementList
                             ArrayListAdapter.saveMsmArrayList(msms, MSMS, context);
@@ -198,11 +255,19 @@ public class MeasurementActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+                @Override
+                public void getError(String error) {
+                    if(error != null){
+                        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+                    }
+                }
             });
         } else {
             Toast.makeText(getApplicationContext(), "Add Measurement : An Api Key must selected!", Toast.LENGTH_SHORT)
                     .show();
         }
+
     }
 
     private String findApiKeyByLabel(String apiKeyLabel) {
@@ -210,6 +275,7 @@ public class MeasurementActivity extends AppCompatActivity {
         for (ApiKey ak : apiKeys) {
             if (ak.getLabel().equals(apiKeyLabel)) {
                 apiKey = ak.getUuid();
+                break;
             }
         }
         return apiKey;

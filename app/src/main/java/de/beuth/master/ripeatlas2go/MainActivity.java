@@ -27,14 +27,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         View viewMsm = findViewById(R.id.card_view_msm);
         viewMsm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,9 +111,16 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(MainActivity.this, ApiKeysActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            String shareText = "Checkout the Android App for RIPE Atlas -- ";
+            String shareURL = "https://github.com/SillyMoto/potential-octo-spoon";
+            i.putExtra(Intent.EXTRA_TITLE, "RIPE Atlas 2 Go");
+            i.putExtra(Intent.EXTRA_TEXT, shareText + shareURL);
+            startActivity(Intent.createChooser(i, "Share Android App"));
+        } else if (id == R.id.nav_about) {
+            Intent i = new Intent(MainActivity.this, AboutActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

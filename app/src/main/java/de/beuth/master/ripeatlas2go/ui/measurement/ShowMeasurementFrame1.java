@@ -4,18 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodSubtype;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 
 import de.beuth.master.classes.Measurement;
-import de.beuth.master.ripeatlas2go.ActivityShowMeasurement;
 import de.beuth.master.ripeatlas2go.R;
 
 
@@ -48,7 +44,6 @@ public class ShowMeasurementFrame1 extends Fragment {
      * @param msm Parameter 1.
      * @return A new instance of fragment ShowMeasurementFrame1.
      */
-    // TODO: Rename and change types and number of parameters
     public static ShowMeasurementFrame1 newInstance(Measurement msm) {
         ShowMeasurementFrame1 fragment = new ShowMeasurementFrame1();
         Bundle args = new Bundle();
@@ -116,17 +111,21 @@ public class ShowMeasurementFrame1 extends Fragment {
         tmp = "IP Address: " + mMsm.getTargetIP();
         text.setText(tmp);
         text = view.findViewById(R.id.target_subtitle1_body5);
-        tmp = "All resolved IPs: " + mMsm.getResolvedIps().toString();
+        if(mMsm.getResolvedIps() != null){
+            tmp = "All resolved IPs: " + mMsm.getResolvedIps().toString();
+        } else {
+            tmp = "All resolved IPs: - ";
+        }
         text.setText(tmp);
         text = view.findViewById(R.id.target_subtitle2_body1);
         tmp = "Resolved on Probe: " + mMsm.getResolveOnProbe().toString();
         text.setText(tmp);
 
-        // TODO:  Specific Data for Type
         text = view.findViewById(R.id.specific_subtitle1);
-        text.setText("Specific Data");
+        text.setText(R.string.specific_data);
         text = view.findViewById(R.id.specific_subtitle1_body1);
-        text.setText("bla bla");
+        //TODO: switch (mMsm.getType()){case "ping":}
+        text.setText(R.string.specific_data_hint);
 
         text = view.findViewById(R.id.status_subtitle1_body1);
         tmp = "Status: " + mMsm.getStatus().getName();

@@ -12,7 +12,7 @@
     <string name="menu_credits">Credits</string>
     <string name="menu_api_keys">Api Keys</string>
     <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
+    <string name="menu_about">About</string>
     <string name="title_activity_measurement">MeasurementActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -61,12 +61,14 @@
     <string name="tab_text_2">Latest Results</string>
 
     <string name="overview">Overview</string>
+
     <string name="address_family_and_type">Address Family and Type</string>
     <string name="part_of_group">Part of Group</string>
     <string name="one_off_or_recurring">One-Off or Recurring</string>
     <string name="target">Target</string>
     <string name="requested">Requested</string>
     <string name="specific_settings">Specific Settings</string>
+    <string name="specific_data">Specific Data</string>
     <string name="status_and_time">Status and Time</string>
     <string name="current_status">Current Status</string>
     <string name="system_time">System Time</string>
@@ -93,4 +95,25 @@
     <string name="check_your_measurement_activities">Check your Measurement activities</string>
     <string name="check_your_credit_activities">Check your Credit activities</string>
     <string name="check_your_api_keys_activities">Check your API Keys activities</string>
+    <string name="text_about_1">This App is part of my Master Thesis called \"Untersuchung zum Einsatz der RIPE Atlas Plattform für Messung von Internet Diensten\".
+        The platform RIPE Atlas is building the largest Internet measurement network.
+        With your help, you can expand the network, if you become an user and host your own probe.
+        For further information check out the RIPE Atlas website:
+    </string>
+    <string name="ripe_atlas_link">https://atlas.ripe.net/about/<a href="https://atlas.ripe.net/"/></string>
+    <string name="text_about_2">As user you can perform your own measurements and test your own targets.
+        This App allows you to monitor your profile with your Measurements, Credits and API Keys.
+        For the functionality the app uses the RIPE Atlas API.
+        The manual can be found here:
+    </string>
+    <string name="ripe_atlas_api_link">https://atlas.ripe.net/docs/api/v2/manual/<a href="https://atlas.ripe.net/docs/api/v2/manual/"/></string>
+    <string name="specific_data_hint">Here you will find data about the specific measurement type&#8230;</string>
+    <string-array name="msm_array">
+        <item>All Measurements</item>
+        <item>All Ping Measurements</item>
+        <item>All Traceroute Measurements</item>
+        <item>All DNS Measurements</item>
+        <item>All SSL Measurements</item>
+        <item>Specific Measurement by ID</item>
+    </string-array>
 </resources>

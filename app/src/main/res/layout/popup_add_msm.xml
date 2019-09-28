@@ -32,5 +32,29 @@
         android:layout_below="@+id/popup_subtitle1"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown"/>
+    <TextView
+        android:id="@+id/popup_subtitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popup_spinner1"
+        android:text="@string/msm"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+    <Spinner
+        android:id="@+id/popup_spinner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popup_subtitle2"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:entries="@array/msm_array"/>
 
+    <EditText
+        android:id="@+id/popup_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/popup_spinner2"
+        android:inputType="text"
+        android:hint="@string/header_column1"
+        android:autofillHints="@string/header_column1"
+        android:visibility="invisible"/>
 </RelativeLayout>

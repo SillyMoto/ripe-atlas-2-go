@@ -28,7 +28,7 @@ import de.beuth.master.ripeatlas2go.ui.measurement.SectionsPagerAdapter;
 import de.beuth.master.services.CustomListener;
 import de.beuth.master.services.WebConnect;
 
-public class ActivityShowMeasurement extends AppCompatActivity {
+public class ShowMeasurementActivity extends AppCompatActivity {
 
     final String MSM = "measurement";
     Measurement msm;
@@ -39,7 +39,6 @@ public class ActivityShowMeasurement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         WebConnect.getInstance(this);
         setContentView(R.layout.activity_show_measurement);
-        // SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         // Get MSM from Intent.getExtra()
         msm = (Measurement) getIntent().getSerializableExtra(MSM);

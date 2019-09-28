@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/show_msm_fragment_frame1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.measurement.ShowMeasurementFrame1">
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,18 +41,21 @@
                 android:id="@+id/overview_subtitle1_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/overview_subtitle1_body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/overview_subtitle1_body3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -64,18 +69,21 @@
                 android:id="@+id/overview_subtitle2_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/overview_subtitle2_body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/overview_subtitle2_body3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -89,6 +97,7 @@
                 android:id="@+id/overview_subtitle3_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -114,18 +123,21 @@
                 android:id="@+id/target_subtitle1_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/target_subtitle1_body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/target_subtitle1_body3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             <TextView
                 android:id="@+id/target_subtitle1_body4"
@@ -136,6 +148,7 @@
                 android:id="@+id/target_subtitle1_body5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             <TextView
                 android:id="@+id/target_subtitle2"
@@ -148,6 +161,7 @@
                 android:id="@+id/target_subtitle2_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -173,6 +187,7 @@
                 android:id="@+id/specific_subtitle1_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
@@ -199,6 +214,7 @@
                 android:id="@+id/status_subtitle1_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -212,6 +228,7 @@
                 android:id="@+id/status_subtitle2_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -225,12 +242,14 @@
                 android:id="@+id/status_subtitle3_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/status_subtitle3_body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -244,12 +263,14 @@
                 android:id="@+id/status_subtitle4_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
                 android:id="@+id/status_subtitle4_body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <TextView
@@ -275,16 +296,19 @@
                 android:id="@+id/probes_subtitle1_body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             <TextView
                 android:id="@+id/probes_subtitle1_body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             <TextView
                 android:id="@+id/probes_subtitle1_body3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textIsSelectable="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         </LinearLayout>
     </ScrollView>

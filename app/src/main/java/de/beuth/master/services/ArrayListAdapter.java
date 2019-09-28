@@ -46,7 +46,6 @@ public class ArrayListAdapter {
         editor.apply();     // This line is IMPORTANT !!!
     }
 
-
     public static ArrayList<ApiKey> getApiKeyArrayList(String key, Context context){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         Gson gson = new Gson();
