@@ -1,4 +1,3 @@
-# potential-octo-spoon
 # RIPE Atlas 2 Go
 ###### Android App for Ripe Atlas
 
