@@ -226,7 +226,6 @@ public class ApiKeysActivity extends AppCompatActivity {
     }
 
     private void getApiKeys(final String apiKey) {
-        //String suffixURL = KEYS_URL + API_KEYS_URL + "5adcf6b3-ef7a-4acd-ad6a-b5c38d892a43"; // apikey;
         String suffixURL = KEYS_URL + API_KEYS_URL + apiKey;
         WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String, String>() {
             @Override
