@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column1"
+                android:text="@string/id"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column2"
+                android:text="@string/type"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column3"
+                android:text="@string/start"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column4"
+                android:text="@string/stop"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column5"
+                android:text="@string/probes"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column6"
+                android:text="@string/status"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         </TableRow>

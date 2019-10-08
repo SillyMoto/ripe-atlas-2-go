@@ -11,7 +11,7 @@
             android:layout_weight = "1"
             android:ellipsize = "end"
             android:padding = "5dp"
-            android:text = "@string/header_column7"
+            android:text = "@string/uuid"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
@@ -23,7 +23,7 @@
             android:ellipsize = "end"
             android:padding = "5dp"
             android:layout_gravity="bottom"
-            android:text = "@string/header_column8"
+            android:text = "@string/label"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
@@ -34,7 +34,7 @@
             android:layout_weight = "1.5"
             android:ellipsize = "end"
             android:padding = "5dp"
-            android:text = "@string/header_column9"
+            android:text = "@string/valid_from"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
@@ -45,7 +45,7 @@
             android:layout_weight = "1.5"
             android:ellipsize = "end"
             android:padding = "5dp"
-            android:text = "@string/header_column10"
+            android:text = "@string/valid_to"
              android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 
@@ -56,7 +56,7 @@
             android:layout_weight = "1"
             android:ellipsize = "end"
             android:padding = "5dp"
-            android:text = "@string/header_column11"
+            android:text = "@string/enabled"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:singleLine = "true" />
 

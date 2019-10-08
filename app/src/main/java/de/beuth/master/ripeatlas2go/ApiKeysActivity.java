@@ -68,7 +68,7 @@ public class ApiKeysActivity extends AppCompatActivity {
         } else {
             apiKeys = new ArrayList<>();
         }
-        System.out.println(API_KEYS + apiKeys + getApplicationContext());
+        Log.d("ApiKeyActivity",API_KEYS + apiKeys );
 
         final ListView listView = findViewById(R.id.list_view_api_keys);
         adapter = new ListViewApiKeysAdapter(this, apiKeys);
@@ -116,7 +116,7 @@ public class ApiKeysActivity extends AppCompatActivity {
             // set prompts.xml to alertDialog builder
             alertDialogBuilder.setView(popupView);
 
-            //intializing scan object
+            //initializing scan object
             qrScan = new IntentIntegrator(this);
 
             if (resource == R.layout.popup_show_api_key && item != null) {
@@ -135,9 +135,12 @@ public class ApiKeysActivity extends AppCompatActivity {
                 view.setText(DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(System.currentTimeMillis()));
                 view = popupView.findViewById(R.id.popup_body5);
                 StringBuilder permission = new StringBuilder();
-                if (apiKey.getPermissions() != null) {
-                    for (String s : apiKey.getPermissions()) {
-                        permission.append(s).append(",");
+                if (apiKey.getGrants() != null) {
+                    for (int g = 0; g < apiKey.getGrants().size(); g++){
+                        permission.append(apiKey.getGrants().get(g).getPermission());
+                        if(g < apiKey.getGrants().size()-1){
+                            permission.append("\n");
+                        }
                     }
                     view.setText(permission);
                 } else {
@@ -236,7 +239,14 @@ public class ApiKeysActivity extends AppCompatActivity {
                         jsonResult = new JSONObject(result);
                         JSONArray results = jsonResult.getJSONArray("results");
                         for (int i = 0; i < results.length(); i++) {
+                           /* ArrayList<Grant> grants = new ArrayList<>();
+                            JSONArray grantArray = results.getJSONObject(i).getJSONArray("grants");
+                            for(int o = 0; o < grantArray.length(); o++){
+                                Grant grant = gson.fromJson(grantArray.get(o).toString(), Grant.class);
+                                grants.add(grant);
+                            }*/
                             ApiKey ak = gson.fromJson(results.getJSONObject(i).toString(), ApiKey.class);
+                            //ak.setGrants(grants);
                             apiKeys.add(ak);
                         }
                         // SharedPreferences: Save results to ApiKeyList

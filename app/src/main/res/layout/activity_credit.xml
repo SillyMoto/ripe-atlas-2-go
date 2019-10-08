@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".CreditActivity">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollViewCredit"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -124,7 +132,7 @@
         <View
             android:id="@+id/line2"
             android:layout_width="wrap_content"
-            android:background="@color/cardview_dark_background"
+            android:background="@color/colorPrimaryDark"
             android:layout_height="2dip" />
 
         <TextView
@@ -153,8 +161,10 @@
             android:layout_marginTop="2dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

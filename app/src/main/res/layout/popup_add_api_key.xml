@@ -41,7 +41,7 @@
             android:id="@+id/textInputEditTextUUID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/header_column7"/>
+            android:hint="@string/uuid"/>
 
     </android.support.design.widget.TextInputLayout>
 

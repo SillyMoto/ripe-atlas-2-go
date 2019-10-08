@@ -24,17 +24,17 @@ import de.beuth.master.ripeatlas2go.R;
  * create an instance of this fragment.
  */
 public class ShowMeasurementFrame1 extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String MSM = "measurement";
 
-    // TODO: Rename and change types of parameters
     private Measurement mMsm;
 
     private OnFragmentInteractionListener mListener;
 
+    /**
+     * required empty constructor
+     */
     public ShowMeasurementFrame1() {
-        // Required empty public constructor
     }
 
     /**
@@ -137,7 +137,11 @@ public class ShowMeasurementFrame1 extends Fragment {
         tmp = "Start Time: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(mMsm.getStartTime());
         text.setText(tmp);
         text = view.findViewById(R.id.status_subtitle3_body2);
-        tmp =  "Stop Time: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(mMsm.getStopTime());
+        if (mMsm.getStopTime()!= null){
+            tmp =  "Stop Time: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(mMsm.getStopTime());
+        }else{
+            tmp = "Stop Time: - ";
+        }
         text.setText(tmp);
         text = view.findViewById(R.id.status_subtitle4_body1);
         tmp = "Interval: " + mMsm.getInterval();

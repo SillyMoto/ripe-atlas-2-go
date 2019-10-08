@@ -334,6 +334,7 @@ public class ShowMeasurementFrame2 extends Fragment {
                 }
             }
         } else {
+            // Test Data
             yVals.add(new Entry(0, 60));
             yVals.add(new Entry(1, 48));
             yVals.add(new Entry(2, 70.5f));

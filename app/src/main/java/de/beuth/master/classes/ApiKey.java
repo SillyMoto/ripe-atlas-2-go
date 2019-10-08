@@ -20,10 +20,10 @@ public class ApiKey {
     private Date createdAt;
     @SerializedName("label")
     private String label;
-    @SerializedName("permissions")
-    private ArrayList<String> permissions;
+    @SerializedName("grants")
+    private ArrayList<Grant> grants;
 
-    public ApiKey(String uuid, Date validFrom, Date validTo, Boolean enabled, Boolean isActive, Date createdAt, String label, ArrayList<String> permissions) {
+    public ApiKey(String uuid, Date validFrom, Date validTo, Boolean enabled, Boolean isActive, Date createdAt, String label, ArrayList<Grant> grants) {
         this.uuid = uuid;
         this.validFrom = validFrom;
         this.validTo = validTo;
@@ -31,7 +31,7 @@ public class ApiKey {
         this.isActive = isActive;
         this.createdAt = createdAt;
         this.label = label;
-        this.permissions = permissions;
+        this.grants = grants;
     }
 
     public String getUuid() {
@@ -90,11 +90,11 @@ public class ApiKey {
         this.label = label;
     }
 
-    public ArrayList<String> getPermissions() {
-        return permissions;
+    public ArrayList<Grant> getGrants() {
+        return grants;
     }
 
-    public void setPermissions(ArrayList<String> permissions) {
-        this.permissions = permissions;
+    public void setGrants(ArrayList<Grant> grants) {
+        this.grants = grants;
     }
 }

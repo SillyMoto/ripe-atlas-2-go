@@ -3,8 +3,6 @@ package de.beuth.master.ripeatlas2go;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,9 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 
+import de.beuth.master.services.ArrayListAdapter;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    final String MSMS = "measurements";
+    final String API_KEYS = "apiKeys";
     private MenuItem item;
 
     @Override
@@ -85,8 +87,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_delete_msm) {
+            ArrayListAdapter.saveMsmArrayList(null, MSMS, this);
             return true;
+        }
+
+        if (id == R.id.action_delete_keys) {
+            ArrayListAdapter.saveApiKeyArrayList(null, API_KEYS, this);
         }
 
         return super.onOptionsItemSelected(item);

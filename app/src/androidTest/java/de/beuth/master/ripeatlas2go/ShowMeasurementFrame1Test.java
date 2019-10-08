@@ -69,7 +69,7 @@ public class ShowMeasurementFrame1Test {
     }
 
     @Test
-    @UiThreadTest
+    @SmallTest
     public void onAttachTest() throws Throwable {
         executePendingTransactions(manager);
         Fragment f = manager.getFragments().get(0);
@@ -94,6 +94,7 @@ public class ShowMeasurementFrame1Test {
     @UiThreadTest
     public void destroyFragment() throws Throwable {
         Fragment f = manager.getFragments().get(0);
+        // java.lang.IllegalStateException: Must be called from main thread of fragment host
         manager.beginTransaction().remove(f).commitNowAllowingStateLoss();
         executePendingTransactions(manager);
         assertFalse("Fragment frame1 is added", f.isAdded());

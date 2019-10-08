@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column7"
+                android:text="@string/uuid"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:text="@string/header_column8"
+                android:text="@string/label"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column9"
+                android:text="@string/valid_from"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column10"
+                android:text="@string/valid_to"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/header_column11"
+                android:text="@string/enabled"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         </TableRow>

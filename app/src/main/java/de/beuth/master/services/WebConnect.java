@@ -18,9 +18,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class WebConnect {
 
     private static final String TAG = "NetworkManager";
@@ -42,7 +39,10 @@ public class WebConnect {
         return instance;
     }
 
-    //this is so you don't need to pass context each time
+    /**
+     * get instance, so you don't need to pass the context each time
+     * @return WebConnect
+     */
     public static synchronized WebConnect getInstance() {
         if (null == instance) {
             throw new IllegalStateException(WebConnect.class.getSimpleName() +
@@ -51,14 +51,10 @@ public class WebConnect {
         return instance;
     }
 
-    public void postRequestReturningString(String suffixURL, Object param1, final CustomListener<String, String> listener) {
-
+    public void postRequestReturningString(String suffixURL, JSONObject jsonObject, final CustomListener<String, String> listener) {
         String url = prefixURL + suffixURL;
 
-        Map<String, Object> jsonParams = new HashMap<>();
-        jsonParams.put("param1", param1);
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(jsonParams),
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -84,7 +80,7 @@ public class WebConnect {
                         message = "Connection TimeOut! Please check your internet connection.";
                     }
                     listener.getError(message);
-                    listener.getResult(null);
+                    //listener.getResult(null);
                 }
             }
         });

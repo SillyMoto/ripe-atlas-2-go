@@ -71,7 +71,7 @@ public class ShowMeasurementFrame2Test {
     }
 
     @Test
-    @UiThreadTest
+    @SmallTest
     public void onAttachTest() throws Throwable {
         executePendingTransactions(manager);
         Fragment f = manager.getFragments().get(1);
@@ -83,7 +83,7 @@ public class ShowMeasurementFrame2Test {
     @SmallTest
     public void onCreateTest() throws Throwable{
         executePendingTransactions(manager);
-        Fragment f = manager.getFragments().get(0);
+        Fragment f = manager.getFragments().get(1);
         assertNotNull(f.getActivity());
         LineChart chart = f.getActivity().findViewById(R.id.line_chart1);
         assertThat(chart, Matchers.<LineChart>instanceOf(LineChart.class));
@@ -92,7 +92,9 @@ public class ShowMeasurementFrame2Test {
     @Test
     @UiThreadTest
     public void destroyFragment() throws Throwable {
+        executePendingTransactions(manager);
         Fragment f = manager.getFragments().get(1);
+        // Must be called from main thread of fragment host
         manager.beginTransaction().remove(f).commitNowAllowingStateLoss();
         executePendingTransactions(manager);
         assertFalse("Fragment frame2 is added", f.isAdded());

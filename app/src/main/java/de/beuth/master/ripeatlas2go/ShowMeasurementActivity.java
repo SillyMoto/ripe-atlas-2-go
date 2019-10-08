@@ -4,28 +4,10 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
-
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import de.beuth.master.classes.Measurement;
 import de.beuth.master.ripeatlas2go.ui.measurement.SectionsPagerAdapter;
-import de.beuth.master.services.CustomListener;
 import de.beuth.master.services.WebConnect;
 
 public class ShowMeasurementActivity extends AppCompatActivity {

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.beuth.master.classes.ApiKey;
+import de.beuth.master.classes.Grant;
 
 import static org.junit.Assert.*;
 
@@ -20,23 +21,10 @@ import static org.junit.Assert.*;
 public class ApiKeysTest {
 
     @Test
-    public void findApiKeyByLabel_iscCorrect() {
-        ArrayList<ApiKey> apiKeys = new ArrayList<>();
-        apiKeys.add(new ApiKey("5adcf6b3-ef7a-4acd-ad6a-b5c38d892a43", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), true, true, new Date(System.currentTimeMillis()), "LABEL", new ArrayList<String>()));
-        String apiKey = null;
-        for (ApiKey ak : apiKeys) {
-            if (ak.getLabel().equals("LABEL")) {
-                apiKey = ak.getUuid();
-            }
-        }
-        assertEquals(apiKey, "5adcf6b3-ef7a-4acd-ad6a-b5c38d892a43");
-    }
-
-    @Test
     public void gsonApiKey() {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
             String jsonString = "{\n" +
-                    "            \"uuid\": \"1a451379-e4c4-462a-9c0d-0700fc79d0bd\",\n" +
+                    "            \"uuid\": \"1a451379-x-x-x-x\",\n" +
                     "            \"valid_from\": null,\n" +
                     "            \"valid_to\": null,\n" +
                     "            \"enabled\": true,\n" +
@@ -72,7 +60,22 @@ public class ApiKeysTest {
         assertNotNull(ak);
         assertEquals(ak.getClass(), ApiKey.class);
         assertEquals("ripe-atlas-probes", ak.getLabel());
-        assertEquals("1a451379-e4c4-462a-9c0d-0700fc79d0bd", ak.getUuid());
+        assertEquals("1a451379-x-x-x-x", ak.getUuid());
+    }
+
+    @Test
+    public void findApiKeyByLabel_isCorrect() {
+        ArrayList<ApiKey> apiKeys = new ArrayList<>();
+        ArrayList<Grant> grants = new ArrayList<>();
+        grants.add(new Grant("grant"));
+        apiKeys.add(new ApiKey("5adcf6b3-x-x-x-x", new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()), true, true, new Date(System.currentTimeMillis()), "LABEL", grants));
+        String apiKey = null;
+        for (ApiKey ak : apiKeys) {
+            if (ak.getLabel().equals("LABEL")) {
+                apiKey = ak.getUuid();
+            }
+        }
+        assertEquals(apiKey, "5adcf6b3-x-x-x-x");
     }
 
 }

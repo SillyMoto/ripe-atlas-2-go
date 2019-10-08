@@ -4,10 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import de.beuth.master.ripeatlas2go.R;
-
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
 public class AboutActivity extends AppCompatActivity {
