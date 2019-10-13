@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2019 SillyMoto authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.beuth.master.ripeatlas2go;
 
 import android.app.AlertDialog;
@@ -37,6 +52,19 @@ import de.beuth.master.services.WebConnect;
 
 import static android.text.Layout.JUSTIFICATION_MODE_INTER_WORD;
 
+/**
+ * <h1>API Keys Activity!</h1>
+ * <p>
+ * This activity list all api keys in a ListView.
+ * To list api keys you can add keys. These keys are necessary
+ * for the other activities to access your data of RIPE Atlas.
+ * The button "create api keys" gives you an introduction to those keys
+ * and explains how to create them.
+ *
+ * @author  Sarah Kommorovski
+ * @version 1.0
+ * @since   2019-09-30
+ */
 public class ApiKeysActivity extends AppCompatActivity {
 
     final String KEYS_URL = "/keys";

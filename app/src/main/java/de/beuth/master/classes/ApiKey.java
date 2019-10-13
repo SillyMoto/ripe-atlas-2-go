@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2019 SillyMoto authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.beuth.master.classes;
 
 import com.google.gson.annotations.SerializedName;
@@ -5,6 +20,18 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * <h1>API Key Class!</h1>
+ * <p>
+ * This class implements all fields of an API Key.
+ *
+ * GET-Request to get all your keys:
+ * <b>https://atlas.ripe.net/api/v2/keys/</b>
+ *
+ * @author  Sarah Kommorovski
+ * @version 1.0
+ * @since   2019-09-30
+ */
 public class ApiKey {
     @SerializedName("uuid")
     private String uuid;

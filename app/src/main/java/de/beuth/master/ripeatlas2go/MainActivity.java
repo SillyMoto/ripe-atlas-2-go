@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2019 SillyMoto authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package de.beuth.master.ripeatlas2go;
 
 import android.content.Intent;
@@ -16,6 +31,17 @@ import android.view.Menu;
 
 import de.beuth.master.services.ArrayListAdapter;
 
+/**
+ * <h1>Main Activity!</h1>
+ * <p>
+ * This activity is the start page of the app.
+ * It implements a NavigationView to display a navigation menu.
+ * The important menu items are shown as a card view in the main content.
+ *
+ * @author  Sarah Kommorovski
+ * @version 1.0
+ * @since   2019-09-30
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -79,6 +105,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * This Menu implements two options to delete your added data.
+     * You can delete your added measurements.
+     * You can delete your added api keys.
+     *
+     * @param item id of the clicked item
+     * @return true if delete data is successful
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -94,6 +128,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.action_delete_keys) {
             ArrayListAdapter.saveApiKeyArrayList(null, API_KEYS, this);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
