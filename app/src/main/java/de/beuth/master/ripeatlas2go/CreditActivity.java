@@ -121,51 +121,56 @@ public class CreditActivity extends AppCompatActivity {
             final TextInputEditText inputEditAmount = popupView.findViewById(R.id.input_edit_text_amount);
 
             // get apiKeys as a String Array for the spinner.
-            String[] spinnerItems = new String[apiKeys.size()];
-            for (int i = 0; i < apiKeys.size(); i++) {
-                spinnerItems[i] = apiKeys.get(i).getLabel();
-            }
+            String[] spinnerItems;
+            if (apiKeys != null) {
+                spinnerItems = new String[apiKeys.size()];
+                for (int i = 0; i < apiKeys.size(); i++) {
+                    spinnerItems[i] = apiKeys.get(i).getLabel();
+                }
 
-            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItems);
-            // set the spinners adapter to the previously created one.
-            spinner.setAdapter(spinnerAdapter);
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItems);
+                // set the spinners adapter to the previously created one.
+                spinner.setAdapter(spinnerAdapter);
 
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-            // set prompts.xml to alertDialog builder
-            alertDialogBuilder.setView(popupView);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                // set prompts.xml to alertDialog builder
+                alertDialogBuilder.setView(popupView);
 
-            // set dialog message
-            alertDialogBuilder.setCancelable(false).
-                    setPositiveButton("OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    switch (resource) {
-                                        case R.layout.popup_check_credits:
-                                            getCredits(spinner.getSelectedItem().toString());
-                                            break;
-                                        case R.layout.popup_transfer_credits:
-                                            if(inputEditRecipient.getText() != null && inputEditRecipient.getText().length() > 0 && inputEditAmount.getText() != null && inputEditAmount.getText().length() > 0){
-                                                String recipient = inputEditRecipient.getText().toString();
-                                                int amount = Integer.valueOf(inputEditAmount.getText().toString());
-                                                transferCredits(recipient, amount, spinner.getSelectedItem().toString());
-                                            }else{
-                                                Toast.makeText(getApplicationContext(), "Transfer Credits: Amount or Recipient is missing!", Toast.LENGTH_SHORT)
-                                                        .show();
-                                            }
-                                            break;
+                // set dialog message
+                alertDialogBuilder.setCancelable(false).
+                        setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        switch (resource) {
+                                            case R.layout.popup_check_credits:
+                                                getCredits(spinner.getSelectedItem().toString());
+                                                break;
+                                            case R.layout.popup_transfer_credits:
+                                                if(inputEditRecipient.getText() != null && inputEditRecipient.getText().length() > 0 && inputEditAmount.getText() != null && inputEditAmount.getText().length() > 0){
+                                                    String recipient = inputEditRecipient.getText().toString();
+                                                    int amount = Integer.valueOf(inputEditAmount.getText().toString());
+                                                    transferCredits(recipient, amount, spinner.getSelectedItem().toString());
+                                                }else{
+                                                    Toast.makeText(getApplicationContext(), "Transfer Credits: Amount or Recipient is missing!", Toast.LENGTH_SHORT)
+                                                            .show();
+                                                }
+                                                break;
+                                        }
                                     }
-                                }
-                            })
-                    .setNegativeButton("Cancel",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            // create alertDialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            // show it
-            alertDialog.show();
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                // create alertDialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            } else {
+                Toast.makeText(getApplicationContext(), "No Keys available!", Toast.LENGTH_SHORT).show();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

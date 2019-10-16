@@ -154,245 +154,246 @@ public class MeasurementActivity extends AppCompatActivity {
             final Spinner spinnerKey = popupView.findViewById(R.id.popup_spinner_api_key);
 
             // get apiKeys as a String Array for both spinner
-            String[] spinnerItems = null;
+            String[] spinnerItems;
             if (apiKeys != null) {
                 spinnerItems = new String[apiKeys.size()];
                 for (int i = 0; i < apiKeys.size(); i++) {
                     spinnerItems[i] = apiKeys.get(i).getLabel();
                 }
+
+                ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItems);
+                // set the spinners adapter to the previously created one.
+                Objects.requireNonNull(spinnerKey).setAdapter(spinnerAdapter);
+
+                //AlertDialogBuilder
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                // set prompts.xml to alertDialog builder
+                alertDialogBuilder.setView(popupView);
+
+
+                if (resource == R.layout.popup_add_msm) {
+                    // Find Items of Add Msm
+                    final Spinner spinnerMsm = popupView.findViewById(R.id.popup_spinner2);
+                    final EditText editText = popupView.findViewById(R.id.popup_edit_text);
+                    // show EditText for MsmById
+                    spinnerMsm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if (position == 5) {
+                                editText.setVisibility(View.VISIBLE);
+                            } else {
+                                editText.setVisibility(View.INVISIBLE);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            editText.setVisibility(View.INVISIBLE);
+                        }
+                    });
+
+                    // set DialogBuilder
+                    // set dialog message
+                    alertDialogBuilder.setCancelable(false).
+                            setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            getMsm(spinnerMsm.getSelectedItemPosition(), spinnerKey.getSelectedItem().toString(), editText.getText().toString());
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                } else if (resource == R.layout.popup_create_msm) {
+                    // Find Items of Create Msm
+                    final EditText description = popupView.findViewById(R.id.textInputEditTextDescription);
+                    final Spinner spinnerMsmType = popupView.findViewById(R.id.popup_spinner_msm_type);
+                    final RadioButton buttonIpv4 = popupView.findViewById(R.id.radioButtonIPv4);
+                    final RadioButton buttonIpv6 = popupView.findViewById(R.id.radioButtonIPv6);
+                    final EditText target = popupView.findViewById(R.id.textInputEditTextTarget);
+                    final Spinner spinnerProbesType = popupView.findViewById(R.id.popup_spinner_probes_type);
+                    final EditText value = popupView.findViewById(R.id.textInputEditTextValue);
+                    final EditText number = popupView.findViewById(R.id.textInputEditTextNumber);
+                    final Switch switchOneOff = popupView.findViewById(R.id.switch_one_off);
+                    final EditText startTime = popupView.findViewById(R.id.textInputEditTextStartTime);
+                    startTime.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(hasFocus)
+                                startTime.setHint("2019-10-31T14:15:00Z or empty for now");
+                            else
+                                startTime.setHint("Start");
+                        }
+                    });
+                    final EditText stopTime = popupView.findViewById(R.id.textInputEditTextStopTime);
+                    stopTime.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(hasFocus)
+                                stopTime.setHint("2019-11-01T14:15:00Z or empty for never");
+                            else
+                                stopTime.setHint("Stop");
+                        }
+                    });
+                    // One-off or Recurring
+                    switchOneOff.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(switchOneOff.isChecked()){
+                                stopTime.setVisibility(View.INVISIBLE);
+                            } else {
+                                stopTime.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    });
+                    // set dialog message
+                    alertDialogBuilder.setCancelable(false).
+                            setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // create json Object Definition
+                                            JSONObject jsonDefinition = new JSONObject();
+                                            try {
+                                                jsonDefinition.put("target", target.getText().toString());
+                                                jsonDefinition.put("description", description.getText().toString());
+                                                if(spinnerMsmType.getSelectedItem().toString().equals("SSL"))
+                                                    jsonDefinition.put("type", "sslcert");
+                                                else
+                                                    jsonDefinition.put("type", spinnerMsmType.getSelectedItem().toString().toLowerCase());
+                                                if (buttonIpv4.isChecked())
+                                                    jsonDefinition.put("af", 4);
+                                                else if (buttonIpv6.isChecked())
+                                                    jsonDefinition.put("af", 6);
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            // create json Object Probes
+                                            JSONObject jsonProbes = new JSONObject();
+                                            try {
+                                                jsonProbes.put("requested", Integer.valueOf(number.getText().toString()));
+                                                switch (spinnerProbesType.getSelectedItemPosition()) {
+                                                    case 0:
+                                                        if (!AREA.contains(value.getText().toString())) {
+                                                            Toast.makeText(getApplicationContext(), "Wrong Area Value!", Toast.LENGTH_SHORT).show();
+                                                            return;
+                                                        }
+                                                        break;
+                                                    case 1:
+                                                        if (!value.getText().toString().matches("^[a-zA-Z]{2}$")) {
+                                                            Toast.makeText(getApplicationContext(), "Wrong Country Value!", Toast.LENGTH_SHORT).show();
+                                                            return;
+                                                        }
+                                                        break;
+                                                    case 2:
+                                                        if (!value.getText().toString().matches("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\/[0-9]{1,2}$")) {
+                                                            Toast.makeText(getApplicationContext(), "Wrong Prefix Value!", Toast.LENGTH_SHORT).show();
+                                                            return;
+                                                        }
+                                                        break;
+                                                    case 3:
+                                                    case 4:
+                                                    case 5:
+                                                        if (!value.getText().toString().matches("^[0-9]*(,[0-9]*)*$")) {
+                                                            Toast.makeText(getApplicationContext(), "Wrong [ASN, Probes, Msm] Value!", Toast.LENGTH_SHORT).show();
+                                                            return;
+                                                        }
+                                                        break;
+                                                }
+                                                String type = spinnerProbesType.getSelectedItem().toString().toLowerCase();
+                                                if (type.equals("measurements"))
+                                                    type = "udm";
+                                                jsonProbes.put("type", type);
+                                                jsonProbes.put("value", value.getText().toString());
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            final JSONObject jsonObject = new JSONObject();
+                                            try {
+                                                jsonObject.put("definitions", new JSONArray().put(jsonDefinition));
+                                                jsonObject.put("probes", new JSONArray().put(jsonProbes));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            // create json Object Time
+                                            try {
+                                                if (switchOneOff.isChecked())
+                                                    jsonObject.put("is_oneoff", true);
+                                                else {
+                                                    jsonObject.put("is_oneoff", false);
+                                                }
+                                                if (startTime.getText() != null && !startTime.getText().toString().isEmpty()){
+                                                    if (DateParser.isValidFormat(startTime.getText().toString())) {
+                                                        jsonObject.put("start_time", startTime.getText().toString());
+                                                    } else {
+                                                        Toast.makeText(context, "Start Time: Wrong Time Format", Toast.LENGTH_LONG).show();
+                                                        return;
+                                                    }
+                                                }
+                                                if (stopTime.getText() != null && !stopTime.getText().toString().isEmpty()) {
+                                                    if (DateParser.isValidFormat(stopTime.getText().toString())) {
+                                                        jsonObject.put("start_time", stopTime.getText().toString());
+                                                    } else {
+                                                        Toast.makeText(context, "Stop Time: Wrong Time Format", Toast.LENGTH_LONG).show();
+                                                        return;
+                                                    }
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+
+                                            String apiKey = findApiKeyByLabel(spinnerKey.getSelectedItem().toString());
+                                            if (apiKey != null) {
+                                                //Post Request to API
+                                                String suffixURL = MSM_URL + "/?" + API_KEYS_URL + apiKey;
+                                                WebConnect.getInstance().postRequestReturningString(suffixURL, jsonObject, new CustomListener<String, String>() {
+                                                    @Override
+                                                    public void getResult(String result) {
+                                                        if (result != null && !result.isEmpty()) {
+                                                            try {
+                                                                JSONObject jsonResult = new JSONObject(result);
+                                                                Toast.makeText(context, "MSM_ID: " + jsonResult.get("measurements"), Toast.LENGTH_SHORT).show();
+                                                            } catch (JSONException e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void getError(String object) {
+                                                        if (object != null) {
+                                                            Toast.makeText(context, "Create MSM Error: " + object, Toast.LENGTH_SHORT).show();
+                                                        }
+
+                                                    }
+                                                });
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Create Msm: No API Key found!", Toast.LENGTH_SHORT)
+                                                        .show();
+                                            }
+
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                }
+
+                // create alertDialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
             } else {
                 Toast.makeText(getApplicationContext(), "No Keys available!", Toast.LENGTH_SHORT).show();
             }
 
-            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerItems);
-            // set the spinners adapter to the previously created one.
-            Objects.requireNonNull(spinnerKey).setAdapter(spinnerAdapter);
-
-            //AlertDialogBuilder
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-            // set prompts.xml to alertDialog builder
-            alertDialogBuilder.setView(popupView);
-
-
-            if (resource == R.layout.popup_add_msm) {
-                // Find Items of Add Msm
-                final Spinner spinnerMsm = popupView.findViewById(R.id.popup_spinner2);
-                final EditText editText = popupView.findViewById(R.id.popup_edit_text);
-                // show EditText for MsmById
-                spinnerMsm.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if (position == 5) {
-                            editText.setVisibility(View.VISIBLE);
-                        } else {
-                            editText.setVisibility(View.INVISIBLE);
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                        editText.setVisibility(View.INVISIBLE);
-                    }
-                });
-
-                // set DialogBuilder
-                // set dialog message
-                alertDialogBuilder.setCancelable(false).
-                        setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        getMsm(spinnerMsm.getSelectedItemPosition(), spinnerKey.getSelectedItem().toString(), editText.getText().toString());
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-            } else if (resource == R.layout.popup_create_msm) {
-                // Find Items of Create Msm
-                final EditText description = popupView.findViewById(R.id.textInputEditTextDescription);
-                final Spinner spinnerMsmType = popupView.findViewById(R.id.popup_spinner_msm_type);
-                final RadioButton buttonIpv4 = popupView.findViewById(R.id.radioButtonIPv4);
-                final RadioButton buttonIpv6 = popupView.findViewById(R.id.radioButtonIPv6);
-                final EditText target = popupView.findViewById(R.id.textInputEditTextTarget);
-                final Spinner spinnerProbesType = popupView.findViewById(R.id.popup_spinner_probes_type);
-                final EditText value = popupView.findViewById(R.id.textInputEditTextValue);
-                final EditText number = popupView.findViewById(R.id.textInputEditTextNumber);
-                final Switch switchOneOff = popupView.findViewById(R.id.switch_one_off);
-                final EditText startTime = popupView.findViewById(R.id.textInputEditTextStartTime);
-                startTime.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if(hasFocus)
-                            startTime.setHint("2019-10-31T14:15:00Z or empty for now");
-                        else
-                            startTime.setHint("Start");
-                    }
-                });
-                final EditText stopTime = popupView.findViewById(R.id.textInputEditTextStopTime);
-                stopTime.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        if(hasFocus)
-                            stopTime.setHint("2019-11-01T14:15:00Z or empty for never");
-                        else
-                            stopTime.setHint("Stop");
-                    }
-                });
-                // One-off or Recurring
-                switchOneOff.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(switchOneOff.isChecked()){
-                            stopTime.setVisibility(View.INVISIBLE);
-                        } else {
-                            stopTime.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
-                // set dialog message
-                alertDialogBuilder.setCancelable(false).
-                        setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // create json Object Definition
-                                        JSONObject jsonDefinition = new JSONObject();
-                                        try {
-                                            jsonDefinition.put("target", target.getText().toString());
-                                            jsonDefinition.put("description", description.getText().toString());
-                                            if(spinnerMsmType.getSelectedItem().toString().equals("SSL"))
-                                                jsonDefinition.put("type", "sslcert");
-                                            else
-                                                jsonDefinition.put("type", spinnerMsmType.getSelectedItem().toString().toLowerCase());
-                                            if (buttonIpv4.isChecked())
-                                                jsonDefinition.put("af", 4);
-                                            else if (buttonIpv6.isChecked())
-                                                jsonDefinition.put("af", 6);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                        // create json Object Probes
-                                        JSONObject jsonProbes = new JSONObject();
-                                        try {
-                                            jsonProbes.put("requested", Integer.valueOf(number.getText().toString()));
-                                            switch (spinnerProbesType.getSelectedItemPosition()) {
-                                                case 0:
-                                                    if (!AREA.contains(value.getText().toString())) {
-                                                        Toast.makeText(getApplicationContext(), "Wrong Area Value!", Toast.LENGTH_SHORT).show();
-                                                        return;
-                                                    }
-                                                    break;
-                                                case 1:
-                                                    if (!value.getText().toString().matches("^[a-zA-Z]{2}$")) {
-                                                        Toast.makeText(getApplicationContext(), "Wrong Country Value!", Toast.LENGTH_SHORT).show();
-                                                        return;
-                                                    }
-                                                    break;
-                                                case 2:
-                                                    if (!value.getText().toString().matches("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\/[0-9]{1,2}$")) {
-                                                        Toast.makeText(getApplicationContext(), "Wrong Prefix Value!", Toast.LENGTH_SHORT).show();
-                                                        return;
-                                                    }
-                                                    break;
-                                                case 3:
-                                                case 4:
-                                                case 5:
-                                                    if (!value.getText().toString().matches("^[0-9]*(,[0-9]*)*$")) {
-                                                        Toast.makeText(getApplicationContext(), "Wrong [ASN, Probes, Msm] Value!", Toast.LENGTH_SHORT).show();
-                                                        return;
-                                                    }
-                                                    break;
-                                            }
-                                            String type = spinnerProbesType.getSelectedItem().toString().toLowerCase();
-                                            if (type.equals("measurements"))
-                                                type = "udm";
-                                            jsonProbes.put("type", type);
-                                            jsonProbes.put("value", value.getText().toString());
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        final JSONObject jsonObject = new JSONObject();
-                                        try {
-                                            jsonObject.put("definitions", new JSONArray().put(jsonDefinition));
-                                            jsonObject.put("probes", new JSONArray().put(jsonProbes));
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        // create json Object Time
-                                        try {
-                                            if (switchOneOff.isChecked())
-                                                jsonObject.put("is_oneoff", true);
-                                            else {
-                                                jsonObject.put("is_oneoff", false);
-                                            }
-                                            if (startTime.getText() != null && !startTime.getText().toString().isEmpty()){
-                                                if (DateParser.isValidFormat(startTime.getText().toString())) {
-                                                    jsonObject.put("start_time", startTime.getText().toString());
-                                                } else {
-                                                    Toast.makeText(context, "Start Time: Wrong Time Format", Toast.LENGTH_LONG).show();
-                                                    return;
-                                                }
-                                            }
-                                            if (stopTime.getText() != null && !stopTime.getText().toString().isEmpty()) {
-                                                if (DateParser.isValidFormat(stopTime.getText().toString())) {
-                                                    jsonObject.put("start_time", stopTime.getText().toString());
-                                                } else {
-                                                    Toast.makeText(context, "Stop Time: Wrong Time Format", Toast.LENGTH_LONG).show();
-                                                    return;
-                                                }
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        String apiKey = findApiKeyByLabel(spinnerKey.getSelectedItem().toString());
-                                        if (apiKey != null) {
-                                            //Post Request to API
-                                            String suffixURL = MSM_URL + "/?" + API_KEYS_URL + apiKey;
-                                            WebConnect.getInstance().postRequestReturningString(suffixURL, jsonObject, new CustomListener<String, String>() {
-                                                @Override
-                                                public void getResult(String result) {
-                                                    if (result != null && !result.isEmpty()) {
-                                                        try {
-                                                            JSONObject jsonResult = new JSONObject(result);
-                                                            Toast.makeText(context, "MSM_ID: " + jsonResult.get("measurements"), Toast.LENGTH_SHORT).show();
-                                                        } catch (JSONException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void getError(String object) {
-                                                    if (object != null) {
-                                                        Toast.makeText(context, "Create MSM Error: " + object, Toast.LENGTH_SHORT).show();
-                                                    }
-
-                                                }
-                                            });
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "Create Msm: No API Key found!", Toast.LENGTH_SHORT)
-                                                    .show();
-                                        }
-
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-            }
-
-            // create alertDialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            // show it
-            alertDialog.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
