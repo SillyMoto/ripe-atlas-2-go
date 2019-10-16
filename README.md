@@ -1,5 +1,5 @@
 # RIPE Atlas 2 Go
-###### Android App for Ripe Atlas
+##### Android App for Ripe Atlas
 
 This App is part of my Master Thesis called "Untersuchung zum Einsatz der RIPE Atlas Plattform für Messung von Internet Diensten".
 The platform RIPE Atlas is building the largest Internet measurement network.
@@ -14,3 +14,20 @@ For the functionality the app uses the RIPE Atlas API.
 The manual can be found here:
 
 [RIPE Atlas APIs Manual](https://atlas.ripe.net/docs/api/v2/manual)
+
+### Installation
+
+###### Enable installing "unkown apps"
+1. Go to Settings --> Apps and Notifications
+2. Select Install Unknown Apps (or Install Other Apps).
+
+###### Install the apk
+1. Download the APK file "app-release.apk" from [/ripe-atlas-2-go/app/release/](release)
+2. Open your Android's file manager app.
+3. Go to the Downloads folder on your device.
+4. Tap the APK file.
+5. Allow the app any required permissions it asks for.
+6. Then, at the bottom of the installer window, click INSTALL.
+
+### Instruction
+
