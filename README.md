@@ -31,4 +31,5 @@ The manual can be found here:
 
 ### Instruction
 
-<video src="RipeAtlas2Go_Introduction_Mute.mp4" width="320" height="200" controls preload></video>
+Check this out:
+[RIPE Atlas Introduction Video](RipeAtlas2Go_Introduction_Mute.mp4)
