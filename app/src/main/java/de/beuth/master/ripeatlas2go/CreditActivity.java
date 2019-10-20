@@ -37,8 +37,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import de.beuth.master.classes.ApiKey;
 import de.beuth.master.classes.Credit;
@@ -252,7 +255,7 @@ public class CreditActivity extends AppCompatActivity {
 
     private void showCredit() {
         TextView view = findViewById(R.id.credits_subtitle1_body1);
-        view.setText(String.valueOf(credit.getCurrentBalance()));
+        view.setText(formatIntToString(credit.getCurrentBalance()));
         view = findViewById(R.id.credits_subtitle2_body1);
         view.setText(String.valueOf(credit.getEstimatedDailyIncome()));
         view = findViewById(R.id.credits_subtitle3_body1);
@@ -283,5 +286,14 @@ public class CreditActivity extends AppCompatActivity {
             }
         }
         return apiKey;
+    }
+
+    public static String formatIntToString(int i){
+        DecimalFormat df = (DecimalFormat) (DecimalFormat.getInstance( Locale.GERMAN ));
+        DecimalFormatSymbols symbols = df.getDecimalFormatSymbols();
+        symbols.setGroupingSeparator( '.' );
+        df.setDecimalFormatSymbols( symbols );
+        //df.applyPattern("#,###");
+        return df.format(i);
     }
 }

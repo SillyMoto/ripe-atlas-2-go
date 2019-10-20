@@ -121,13 +121,14 @@
                 android:spinnerMode="dropdown"
                 android:entries="@array/probe_type_array"/>
 
-            <EditText
-                android:id="@+id/textInputEditTextValue"
-                android:layout_width="match_parent"
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_value"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
+                android:hint="@string/value"
                 android:autofillHints="@string/value"
-                android:hint="@string/value" />
+                android:completionThreshold="1" />
 
             <EditText
                 android:id="@+id/textInputEditTextNumber"

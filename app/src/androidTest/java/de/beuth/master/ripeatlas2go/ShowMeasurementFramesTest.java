@@ -56,7 +56,7 @@ public class ShowMeasurementFramesTest {
     public void frame1Test() {
         onView(withId(R.id.show_msm_fragment_frame1)).check(matches((isDisplayed())));
         onView(withId(R.id.overview_subtitle1_body1)).check(matches(withText("Description: " + msm.getDescription())));
-        onView(withId(R.id.overview_subtitle2_body3)).check(matches(withText("is wifi group: " + msm.getInWifiGroup())));
+        onView(withId(R.id.overview_subtitle2_body3)).check(matches(withText("is wifi group: " + msm.isInWifiGroup())));
         onView(withId(R.id.status_subtitle1_body1)).check(matches(withText("Status: " + msm.getStatus().getName())));
     }
 

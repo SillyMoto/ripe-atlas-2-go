@@ -11,7 +11,7 @@
         android:layout_width="192dp"
         android:layout_height="167dp"
         android:layout_marginTop="10dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_launcher_foreground"
         android:contentDescription="@string/nav_header_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

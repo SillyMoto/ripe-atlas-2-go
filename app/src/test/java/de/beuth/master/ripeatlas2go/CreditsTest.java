@@ -38,4 +38,10 @@ public class CreditsTest {
         assertEquals(credit.getEstimatedDailyIncome(), 0);
         assertEquals("https://atlas.ripe.net/api/v2/credits/income-items/", credit.getIncomeItems());
     }
+
+    @Test
+    public void checkIntFormatter(){
+        int i = 12365572;
+        assertEquals("12.365.572", CreditActivity.formatIntToString(i));
+    }
 }

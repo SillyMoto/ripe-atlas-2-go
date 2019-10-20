@@ -31,23 +31,25 @@ public class DateParser {
     /**
      * specific date format
      */
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.GERMAN);
+    private static final SimpleDateFormat[] dateFormats = {new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.GERMAN),
+            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'", Locale.GERMAN)};
 
     public static boolean isValidFormat(String value) {
         Date date = null;
-        try {
-            date = dateFormat.parse(value);
-            if (!value.equals(dateFormat.format(date))) {
-                date = null;
+        for (SimpleDateFormat format : dateFormats){
+            try {
+                date = format.parse(value);
+                return true;
+            } catch (ParseException ex) {
+                // loop
             }
-        } catch (ParseException ex) {
-            ex.printStackTrace();
         }
+        System.err.println("No known Date format found: " + value);
         return date != null;
     }
 
     public static String getDate(Date date){
-        return dateFormat.format(date);
+        return dateFormats[0].format(date);
     }
 
 }

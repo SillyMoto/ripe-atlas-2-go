@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HowtoActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="5dp">
+
+            <TextView
+                android:id="@+id/howto_subtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_api_keys"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:layout_height="1dip" />
+
+            <TextView
+                android:id="@+id/howto_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_one" />
+
+            <TextView
+                android:id="@+id/howto_link1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:gravity="center"
+                android:text="@string/ripe_atlas_link_keys" />
+
+            <TextView
+                android:id="@+id/howto_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_two" />
+
+            <TextView
+                android:id="@+id/howto_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_three" />
+
+            <TextView
+                android:id="@+id/howto_link2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:gravity="center"
+                android:text="@string/ripe_atlas_link_qr" />
+
+            <TextView
+                android:id="@+id/howto_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_four" />
+
+            <TextView
+                android:id="@+id/howto_subtitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_credits"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:layout_height="1dip" />
+
+            <TextView
+                android:id="@+id/howto_credit_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_credit_one" />
+
+            <TextView
+                android:id="@+id/howto_credit_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_credit_two" />
+
+            <TextView
+                android:id="@+id/howto_credit_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_credit_three" />
+
+            <TextView
+                android:id="@+id/howto_subtitle3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/msm"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:layout_height="1dip" />
+
+            <TextView
+                android:id="@+id/howto_msm_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_msm_one" />
+
+            <TextView
+                android:id="@+id/howto_msm_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_msm_two" />
+
+            <TextView
+                android:id="@+id/howto_msm_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_msm_three" />
+
+            <TextView
+                android:id="@+id/howto_msm_text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_msm_four" />
+
+            <TextView
+                android:id="@+id/howto_msm_text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/howto_msm_five" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:background="@color/colorPrimary" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:background="@color/colorPrimary" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dip"
+                android:background="@color/colorPrimary" />
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

@@ -16,6 +16,7 @@
 package de.beuth.master.ripeatlas2go.ui.measurement;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -44,6 +45,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
         return PlaceholderFragment.newInstance(position + 1);
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        // POSITION_NONE makes it possible to reload the PagerAdapter
+        return POSITION_NONE;
     }
 
     @Nullable

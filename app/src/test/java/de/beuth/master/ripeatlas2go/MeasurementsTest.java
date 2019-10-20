@@ -7,6 +7,8 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.lang.reflect.Type;
@@ -18,8 +20,10 @@ import static org.junit.Assert.*;
 
 public class MeasurementsTest {
 
-    @Test
-    public void gsonMsm(){
+    private Measurement msm;
+
+    @Before
+    public void setUp(){
         String jsonString = "{\n" +
                 "            \"af\": 4,\n" +
                 "            \"creation_time\": 1285891200,\n" +
@@ -72,15 +76,24 @@ public class MeasurementsTest {
 
         Gson gson = builder.create();
 
-        Measurement msm = gson.fromJson(jsonString, Measurement.class);
+        msm = gson.fromJson(jsonString, Measurement.class);
+    }
 
+    @Test
+    public void gsonMsm(){
         assertNotNull(msm);
         assertEquals(Measurement.class, msm.getClass());
         assertEquals(1001, msm.getID());
-        assertFalse(msm.getInWifiGroup());
+        assertFalse(msm.isInWifiGroup());
         assertEquals("https://atlas.ripe.net/api/v2/measurements/1001/results/", msm.getResult());
         assertEquals("k.root-servers.net", msm.getTarget());
         assertEquals("193.0.14.129", msm.getTargetIP());
         assertEquals("ping", msm.getType());
+    }
+
+    @Test
+    public void checkSubstring(){
+        String substring =  msm.getResult().substring(msm.getResult().indexOf("/m"), msm.getResult().indexOf("/r"));
+        assertEquals("/measurements/1001", substring);
     }
 }

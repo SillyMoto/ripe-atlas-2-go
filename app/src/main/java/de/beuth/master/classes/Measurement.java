@@ -56,7 +56,7 @@ public class Measurement implements Serializable {
     private int interval;
     @SerializedName("is_all_scheduled")
     private Boolean isAllScheduled;
-    @SerializedName("is_one_off")
+    @SerializedName("is_oneoff")
     private Boolean isOneOff;
     @SerializedName("is_public")
     private Boolean isPublic;
@@ -201,7 +201,7 @@ public class Measurement implements Serializable {
         this.ID = ID;
     }
 
-    public Boolean getInWifiGroup() {
+    public Boolean isInWifiGroup() {
         return inWifiGroup;
     }
 
@@ -225,7 +225,7 @@ public class Measurement implements Serializable {
         isAllScheduled = allScheduled;
     }
 
-    public Boolean getOneOff() {
+    public Boolean isOneOff() {
         return isOneOff;
     }
 
@@ -281,7 +281,7 @@ public class Measurement implements Serializable {
         this.probesScheduled = probesScheduled;
     }
 
-    public Boolean getResolveOnProbe() {
+    public Boolean isResolveOnProbe() {
         return resolveOnProbe;
     }
 

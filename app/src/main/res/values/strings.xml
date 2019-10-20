@@ -55,6 +55,7 @@
     <string name="created">Created</string>
     <string name="api_key">API Key</string>
     <string name="communicate">Communicate</string>
+    <string name="info">Info</string>
     <string name="msm">Measurement</string>
     <string name="tab_text_1">Settings &amp; Status</string>
     <string name="tab_text_2">Latest Results</string>
@@ -117,6 +118,26 @@
     <string name="numberOfProbes">Number of Probes</string>
     <string name="timing">Timing</string>
     <string name="one_off">One-off</string>
+    <string name="menu_how_to">Howto</string>
+    <string name="getting_started">Getting Started</string>
+    <string name="howto_one">1. Create all necessary API Keys via the website:</string>
+    <string name="ripe_atlas_link_keys">https://atlas.ripe.net/keys/</string>
+    <string name="howto_two">2. Go to API Keys to add all your created keys to the app.</string>
+    <string name="howto_three">3. Click \"Add API Keys\" and type the UUID of the API Key with the permission \"List all of your api keys\". To ease the typing of the long UUID, you can create a QR Code of the UUID and scan this code. To create a QR Code use a online tool like this:</string>
+    <string name="ripe_atlas_link_qr">https://qrcode.tec-it.com/</string>
+    <string name="howto_four">4. Finally you see all your imported keys in the list view. Now you can start with the other activities.</string>
+    <string name="howto_credit_one">1. Go to Credits and check your actual information about your credits.</string>
+    <string name="howto_credit_two">2. Click \"Check Credits\" and choose your API Key with the permission \"Get information about your credits\".</string>
+    <string name="howto_credit_three">3. It\'s theoretically possible to transfer credits to other users, but it\'s temporally not possible (seems to be a bug of the RIPE Atlas API)</string>
+    <string name="howto_msm_one">1. Go to Measurements to add or create measurements.</string>
+    <string name="howto_msm_two">2. Click \"Add Measurements\" to add measurements to the app. You can choose between all, a typical type or a specific measurement. For a couple of measurements use an API Key with the permission \"List your measurements\". For a specific measurement use an API Key with the permission \"Get results from a non-public measurement\" and specify the measurement with his ID.</string>
+    <string name="howto_msm_three">3. Finally you see all your imported measurements in the list view. Click on a measurement element to get detailed information.</string>
+    <string name="howto_msm_four">4. Click \"Create Measurement\" to create a new measurement via the app. You can specify your parameters via an input wizzard.</string>
+    <string name="howto_msm_five">5. Finally you see an ID of your created measurement. Now you can also add this measurement to the list view.</string>
+    <string name="description_ping">Ping measurement</string>
+    <string name="description_traceroute">Traceroute measurement</string>
+    <string name="description_ssl">SSL measurement</string>
+
     <string-array name="msm_array">
         <item>All Measurements</item>
         <item>All Ping Measurements</item>
@@ -128,7 +149,7 @@
     <string-array name="type_array">
         <item>Ping</item>
         <item>Traceroute</item>
-<!--        <item>DNS</item> not implemented yet-->
+        <!--        <item>DNS</item> not implemented yet-->
         <item>SSL</item>
     </string-array>
     <string-array name="probe_type_array">

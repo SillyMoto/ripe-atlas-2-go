@@ -85,7 +85,7 @@ public class ShowMeasurementFrame1Test {
         TextView text = f.getView().findViewById(R.id.overview_subtitle1_body1);
         assertEquals(text.getText().toString(), "Description: " + msm.getDescription());
         text = f.getView().findViewById(R.id.overview_subtitle2_body3);
-        assertEquals(text.getText().toString(), "is wifi group: " + msm.getInWifiGroup());
+        assertEquals(text.getText().toString(), "is wifi group: " + msm.isInWifiGroup());
         text = f.getView().findViewById(R.id.status_subtitle1_body1);
         assertEquals(text.getText().toString(), "Status: " + msm.getStatus().getName());
     }

@@ -15,7 +15,11 @@
  */
 package de.beuth.master.ripeatlas2go;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -28,6 +32,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.animation.Animation;
+import android.widget.ImageView;
 
 import de.beuth.master.services.ArrayListAdapter;
 
@@ -47,7 +53,6 @@ public class MainActivity extends AppCompatActivity
 
     final String MSMS = "measurements";
     final String API_KEYS = "apiKeys";
-    private MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,17 @@ public class MainActivity extends AppCompatActivity
                 startActivity(i);
             }
         });
+        View viewHowto = findViewById(R.id.card_view_howto);
+        viewHowto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // remove bookmark
+                ImageView view = findViewById(R.id.howto_bookmark);
+                view.setVisibility(View.INVISIBLE);
+                Intent i = new Intent(MainActivity.this, HowtoActivity.class);
+                startActivity(i);
+            }
+        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -86,6 +102,16 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void manageBlinkEffect(View view) {
+        ObjectAnimator anim = ObjectAnimator.ofInt(view, "backgroundColor", Color.WHITE, Color.parseColor("#008577"),
+                Color.WHITE);
+        anim.setDuration(1500);
+        anim.setEvaluator(new ArgbEvaluator());
+        anim.setRepeatMode(ValueAnimator.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.start();
     }
 
     @Override
@@ -134,10 +160,14 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Manage intents for the navigation menu
+     * @param item clicked item of the menu
+     * @return true
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        this.item = item;
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -160,6 +190,9 @@ public class MainActivity extends AppCompatActivity
             i.putExtra(Intent.EXTRA_TITLE, "RIPE Atlas 2 Go");
             i.putExtra(Intent.EXTRA_TEXT, shareText + shareURL);
             startActivity(Intent.createChooser(i, "Share Android App"));
+        } else if (id == R.id.nav_how_to) {
+            Intent i = new Intent(MainActivity.this, HowtoActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_about) {
             Intent i = new Intent(MainActivity.this, AboutActivity.class);
             startActivity(i);

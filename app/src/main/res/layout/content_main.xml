@@ -10,12 +10,6 @@
     android:padding="10dp"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:gravity="center"
-        android:orientation="horizontal">
 
         <android.support.v7.widget.CardView
             android:id="@+id/card_view_msm"
@@ -23,6 +17,7 @@
             android:layout_height="150dp"
             android:layout_margin="10dp"
             android:clickable="true"
+            android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
@@ -61,7 +56,7 @@
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
-    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,9 +68,10 @@
         <android.support.v7.widget.CardView
             android:id="@+id/card_view_credits"
             android:layout_width="160dp"
-            android:layout_height="190dp"
+            android:layout_height="160dp"
             android:layout_margin="10dp"
             android:clickable="true"
+            android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
@@ -114,12 +110,14 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
+
         <android.support.v7.widget.CardView
             android:id="@+id/card_view_api_keys"
             android:layout_width="160dp"
-            android:layout_height="190dp"
+            android:layout_height="160dp"
             android:layout_margin="10dp"
             android:clickable="true"
+            android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
@@ -158,4 +156,61 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_howto"
+        android:layout_width="340dp"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/howto_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/menu_how_to"
+            android:src="@drawable/ic_bookmark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:contentDescription="@string/menu_how_to"
+                android:padding="10dp"
+                android:src="@drawable/ic_menu_howto" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/menu_how_to"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/getting_started"
+                android:textColor="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>

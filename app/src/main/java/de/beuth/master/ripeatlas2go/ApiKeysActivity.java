@@ -189,10 +189,12 @@ public class ApiKeysActivity extends AppCompatActivity {
                 view = popupView.findViewById(R.id.popup_body8);
                 view.setText(apiKey.getEnabled().toString());
             } else if(resource == R.layout.popup_create_api_key){
-                TextView view = popupView.findViewById(R.id.popup_body1);
-                view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
-                view = popupView.findViewById(R.id.popup_body2);
-                view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+                if(android.os.Build.VERSION.SDK_INT >= 26){
+                    TextView view = popupView.findViewById(R.id.popup_body1);
+                    view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+                    view = popupView.findViewById(R.id.popup_body2);
+                    view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+                }
             }
 
             // set dialog message

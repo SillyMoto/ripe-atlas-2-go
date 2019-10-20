@@ -28,11 +28,19 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/menu_share" />
+        </menu>
+    </item>
+
+    <item android:title="@string/info">
+        <menu>
+            <item
+                android:id="@+id/nav_how_to"
+                android:icon="@drawable/ic_menu_howto"
+                android:title="@string/menu_how_to" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_menu_about"
                 android:title="@string/menu_about" />
         </menu>
     </item>
-
 </menu>

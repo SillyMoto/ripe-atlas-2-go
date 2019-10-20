@@ -19,6 +19,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -170,7 +172,9 @@ public class MeasurementActivity extends AppCompatActivity {
                 // set prompts.xml to alertDialog builder
                 alertDialogBuilder.setView(popupView);
 
-
+                /**
+                 * Add Measurement
+                 */
                 if (resource == R.layout.popup_add_msm) {
                     // Find Items of Add Msm
                     final Spinner spinnerMsm = popupView.findViewById(R.id.popup_spinner2);
@@ -211,11 +215,88 @@ public class MeasurementActivity extends AppCompatActivity {
                     // Find Items of Create Msm
                     final EditText description = popupView.findViewById(R.id.textInputEditTextDescription);
                     final Spinner spinnerMsmType = popupView.findViewById(R.id.popup_spinner_msm_type);
+                    spinnerMsmType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            switch (position){
+                                case 0:
+                                    description.setText(getString(R.string.description_ping));
+                                    break;
+                                case 1:
+                                    description.setText(getString(R.string.description_traceroute));
+                                    break;
+                                case 2:
+                                    description.setText(getString(R.string.description_ssl));
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            description.setText(getString(R.string.description_ping));
+                        }
+                    });
+
                     final RadioButton buttonIpv4 = popupView.findViewById(R.id.radioButtonIPv4);
                     final RadioButton buttonIpv6 = popupView.findViewById(R.id.radioButtonIPv6);
                     final EditText target = popupView.findViewById(R.id.textInputEditTextTarget);
+                    target.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                            if(hasFocus)
+                                target.setHint("IP address or hostname");
+                            else
+                                target.setHint("Target");
+                        }
+                    });
                     final Spinner spinnerProbesType = popupView.findViewById(R.id.popup_spinner_probes_type);
-                    final EditText value = popupView.findViewById(R.id.textInputEditTextValue);
+                    final AutoCompleteTextView value = popupView.findViewById(R.id.autocomplete_value);
+                    // Create a simple list item adapter for areas
+                    final ArrayAdapter<String> areaAdapter =
+                            new ArrayAdapter<>(popupView.getContext(), android.R.layout.simple_spinner_dropdown_item, AREA);
+                    spinnerProbesType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            switch (position){
+                                case 0:
+                                    value.setHint("Area");
+                                    value.setAdapter(areaAdapter);
+                                    break;
+                                case 1:
+                                    value.setHint("ISO two-letter country code");
+                                    value.setAdapter(null);
+                                    break;
+                                case 2:
+                                    value.setHint("IP prefix (e.g. 193.3.6.0/8)");
+                                    value.setAdapter(null);
+                                    break;
+                                case 3:
+                                    value.setHint("ASN number (e.g. 680)");
+                                    value.setAdapter(null);
+                                    break;
+                                case 4:
+                                    value.setHint("Probes number (e.g. 1,2,3)");
+                                    value.setAdapter(null);
+                                    break;
+                                case 5:
+                                    value.setHint("measurement ID (e.g. 10002)");
+                                    value.setAdapter(null);
+                                    break;
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                            value.setHint("Area");
+                            value.setAdapter(areaAdapter);
+                        }
+                    });
+                    value.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            value.showDropDown();
+                        }
+                    });
                     final EditText number = popupView.findViewById(R.id.textInputEditTextNumber);
                     final Switch switchOneOff = popupView.findViewById(R.id.switch_one_off);
                     final EditText startTime = popupView.findViewById(R.id.textInputEditTextStartTime);
@@ -327,19 +408,23 @@ public class MeasurementActivity extends AppCompatActivity {
                                                     jsonObject.put("is_oneoff", false);
                                                 }
                                                 if (startTime.getText() != null && !startTime.getText().toString().isEmpty()){
-                                                    if (DateParser.isValidFormat(startTime.getText().toString())) {
-                                                        jsonObject.put("start_time", startTime.getText().toString());
-                                                    } else {
-                                                        Toast.makeText(context, "Start Time: Wrong Time Format", Toast.LENGTH_LONG).show();
-                                                        return;
+                                                    if(!startTime.getText().toString().equals("now")){
+                                                        if (DateParser.isValidFormat(startTime.getText().toString())) {
+                                                            jsonObject.put("start_time", startTime.getText().toString());
+                                                        } else {
+                                                            Toast.makeText(context, "Start Time: Wrong Time Format", Toast.LENGTH_LONG).show();
+                                                            return;
+                                                        }
                                                     }
                                                 }
                                                 if (stopTime.getText() != null && !stopTime.getText().toString().isEmpty()) {
-                                                    if (DateParser.isValidFormat(stopTime.getText().toString())) {
-                                                        jsonObject.put("start_time", stopTime.getText().toString());
-                                                    } else {
-                                                        Toast.makeText(context, "Stop Time: Wrong Time Format", Toast.LENGTH_LONG).show();
-                                                        return;
+                                                    if(!stopTime.getText().toString().equals("never")){
+                                                        if (DateParser.isValidFormat(stopTime.getText().toString())) {
+                                                            jsonObject.put("stop_time", stopTime.getText().toString());
+                                                        } else {
+                                                            Toast.makeText(context, "Stop Time: Wrong Time Format", Toast.LENGTH_LONG).show();
+                                                            return;
+                                                        }
                                                     }
                                                 }
                                             } catch (JSONException e) {
@@ -399,7 +484,7 @@ public class MeasurementActivity extends AppCompatActivity {
         }
     }
 
-    private void getMsm(final int msmType, final String apiKeyLabel, String id) {
+    public void getMsm(final int msmType, final String apiKeyLabel, String id) {
         String suffixURL = MSM_URL;
         switch (msmType) {
             case 0:

@@ -23,9 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.text.DateFormat;
-
 import de.beuth.master.classes.Measurement;
 import de.beuth.master.ripeatlas2go.R;
 
@@ -77,8 +75,8 @@ public class ShowMeasurementFrame1 extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_show_measurement_frame1, container, false);
 
@@ -104,13 +102,13 @@ public class ShowMeasurementFrame1 extends Fragment {
             text.setText(tmp);
         }
         text = view.findViewById(R.id.overview_subtitle2_body3);
-        tmp = "is wifi group: " + mMsm.getInWifiGroup();
+        tmp = "is wifi group: " + mMsm.isInWifiGroup();
         text.setText(tmp);
         text = view.findViewById(R.id.overview_subtitle3_body1);
-        if(mMsm.getOneOff() != null){
+        if(mMsm.isOneOff()){
             tmp = "One-off: true";
         }else{
-            tmp = "Recurring: false";
+            tmp = "Recurring: true";
         }
         text.setText(tmp);
         text = view.findViewById(R.id.target_subtitle1_body1);
@@ -133,7 +131,11 @@ public class ShowMeasurementFrame1 extends Fragment {
         }
         text.setText(tmp);
         text = view.findViewById(R.id.target_subtitle2_body1);
-        tmp = "Resolved on Probe: " + mMsm.getResolveOnProbe().toString();
+        if(mMsm.isResolveOnProbe() != null){
+            tmp = "Resolved on Probe: " + mMsm.isResolveOnProbe().toString();
+        } else {
+            tmp = "Resolved on Probe: -";
+        }
         text.setText(tmp);
 
         text = view.findViewById(R.id.specific_subtitle1);
@@ -154,8 +156,11 @@ public class ShowMeasurementFrame1 extends Fragment {
         text = view.findViewById(R.id.status_subtitle3_body2);
         if (mMsm.getStopTime()!= null){
             tmp =  "Stop Time: " + DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(mMsm.getStopTime());
-        }else{
-            tmp = "Stop Time: - ";
+        }else {
+            if(mMsm.isOneOff())
+                tmp = "Stop Time: - ";
+            else
+                tmp = "Stop Time: never ";
         }
         text.setText(tmp);
         text = view.findViewById(R.id.status_subtitle4_body1);
@@ -214,4 +219,5 @@ public class ShowMeasurementFrame1 extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
