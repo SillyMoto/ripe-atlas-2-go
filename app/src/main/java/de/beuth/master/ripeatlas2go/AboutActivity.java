@@ -40,10 +40,14 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        TextView view = findViewById(R.id.textView1);
-        view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
-        view = findViewById(R.id.textView2);
-        view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+
+        if(android.os.Build.VERSION.SDK_INT >= 26){
+            TextView view = findViewById(R.id.textView1);
+            view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+            view = findViewById(R.id.textView2);
+            view.setJustificationMode(JUSTIFICATION_MODE_INTER_WORD);
+        }
+
 
     }
 }
