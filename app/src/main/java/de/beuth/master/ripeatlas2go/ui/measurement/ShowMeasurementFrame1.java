@@ -23,7 +23,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.text.DateFormat;
+
 import de.beuth.master.classes.Measurement;
 import de.beuth.master.ripeatlas2go.R;
 
@@ -79,7 +81,15 @@ public class ShowMeasurementFrame1 extends Fragment {
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_show_measurement_frame1, container, false);
+        setText(view);
+        return view;
+    }
 
+    /**
+     * set the text with details of measurement
+     * @param view view of fragment_show_measurement_frame1
+     */
+    private void setText(View view){
         // Set Measurement data to TextViews
         TextView text = view.findViewById(R.id.overview_subtitle1_body1);
         String tmp = "Description: " + mMsm.getDescription();
@@ -178,9 +188,7 @@ public class ShowMeasurementFrame1 extends Fragment {
         text = view.findViewById(R.id.probes_subtitle1_body3);
         tmp = "Actually Participated: " + mMsm.getParticipantCount();
         text.setText(tmp);
-        return view;
     }
-
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
