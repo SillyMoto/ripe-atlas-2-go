@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 import java.lang.annotation.Annotation;
 
 import de.beuth.master.classes.Credit;
+import de.beuth.master.classes.Measurement;
 
 public class HowtoActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class HowtoActivity extends AppCompatActivity {
         makeSpannableTextView(textView, 9, 16, CreditActivity.class);
         // clickable Credits
         textView = findViewById(R.id.howto_msm_text1);
-        makeSpannableTextView(textView, 9, 21, CreditActivity.class);
+        makeSpannableTextView(textView, 9, 21, MeasurementActivity.class);
     }
 
     private void makeSpannableTextView(TextView textView, int startChar, int stopChar, final Class intentClass){
