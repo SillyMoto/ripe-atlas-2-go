@@ -186,7 +186,7 @@ public class CreditActivity extends AppCompatActivity {
             WebConnect.getInstance().getRequestReturningString(suffixURL, new CustomListener<String, String>() {
                 @Override
                 public void getResult(String result) {
-                    if (!result.isEmpty()) {
+                    if (result != null && !result.isEmpty()) {
                         Log.i("getRequest\tgetResult\t", result);
                         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
                         JSONObject jsonResult;
