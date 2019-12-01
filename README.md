@@ -48,5 +48,5 @@ The manual can be found here:
 4. Click \"Create Measurement\" to create a new measurement via the app. You can specify your parameters via an input wizzard.
 5. Finally you see an ID of your created measurement. Now you can also add this measurement to the list view.
 
-Also check this out (old Version):
-[RIPE Atlas Introduction Video](RipeAtlas2Go_Introduction_Mute.mp4)
+Also check this out:
+[RIPE Atlas Introduction Video](RipeAtlas2Go_Introduction.mp4)
